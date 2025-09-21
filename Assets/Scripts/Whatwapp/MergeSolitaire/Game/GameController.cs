@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using Whatwapp.Core.Cameras;
 using Whatwapp.Core.FSM;
 using Whatwapp.Core.Audio;
@@ -20,8 +19,6 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private FoundationsController _foundationsController;
 
         [SerializeField] private ScoreBox _scoreBox;
-
-        [Header("Settings")] [SerializeField] private AnimationSettings _animationSettings;
 
         private StateMachine _stateMachine;
         private SFXManager _sfxManager;
@@ -58,7 +55,7 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             _stateMachine = new StateMachine();
             _sfxManager = SFXManager.Instance;
-            _blockGroupAnimationController = new BlockGroupAnimationController(this, _animationSettings,
+            _blockGroupAnimationController = new BlockGroupAnimationController(this,
                 _foundationsController, _blockFactory, board);
 
             var generateLevel = new GenerateLevelState(this, board, _gridBuilder, _blockFactory, _targetBoundedCamera);

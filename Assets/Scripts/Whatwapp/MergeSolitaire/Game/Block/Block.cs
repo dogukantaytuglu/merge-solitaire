@@ -6,7 +6,6 @@ namespace Whatwapp.MergeSolitaire.Game
     {
         [SerializeField] private BlockVisual _visual;
         
-        
         private BlockValue _value;
         private BlockSeed _seed;
         
