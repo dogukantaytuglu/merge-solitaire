@@ -14,24 +14,26 @@ namespace Whatwapp.MergeSolitaire.Game
         private readonly AnimationSettings _animationSettings;
         private readonly FoundationsController _foundationsController;
         private readonly BlockFactory _blockFactory;
+        private readonly Board _board;
 
         public BlockGroupAnimationController(GameController gameController, AnimationSettings animationSettings,
-            FoundationsController foundationsController, BlockFactory blockFactory)
+            FoundationsController foundationsController, BlockFactory blockFactory, Board board)
         {
             _gameController = gameController;
             _animationSettings = animationSettings;
             _foundationsController = foundationsController;
             _blockFactory = blockFactory;
+            _board = board;
         }
         
-        public void PlayMoveBlocksAnimation(List<Cell> movingCells, Board board, Action onAnimationComplete)
+        public void PlayMoveBlocksAnimation(List<Cell> movingCells, Action onAnimationComplete)
         {
             var sequence = DOTween.Sequence();
             
             foreach (var cell in movingCells)
             {
                 var block = cell.Block;
-                var targetCell = board.GetCell(cell.Coordinates.x, cell.Coordinates.y + 1);
+                var targetCell = _board.GetCell(cell.Coordinates.x, cell.Coordinates.y + 1);
                 targetCell.Block = block;
                 cell.Block = null;
                 sequence.Join(

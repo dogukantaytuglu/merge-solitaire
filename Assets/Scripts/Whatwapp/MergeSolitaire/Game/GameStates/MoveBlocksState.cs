@@ -72,7 +72,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
         private void MoveBlocks()
         {
-            _blockGroupAnimationController.PlayMoveBlocksAnimation(_movingCells, _board, () => _isMovingBlocks = false);
+            _blockGroupAnimationController.PlayMoveBlocksAnimation(_movingCells, () => _isMovingBlocks = false);
         }
 
         public bool CanMoveBlocks()
