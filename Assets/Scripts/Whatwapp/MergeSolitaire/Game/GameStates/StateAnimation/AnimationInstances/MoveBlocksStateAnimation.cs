@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 
-namespace Whatwapp.MergeSolitaire.Game.StateAnimation
+namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class MoveBlocksStateAnimation : IStateAnimation
     {
         private readonly IReadOnlyCollection<Cell> _movingCells;
         private readonly Board _board;
+        
+        private Sequence _sequence;
 
         public MoveBlocksStateAnimation(IReadOnlyCollection<Cell> movingCells, Board board)
         {
@@ -29,6 +31,11 @@ namespace Whatwapp.MergeSolitaire.Game.StateAnimation
 
             sequence.OnComplete(onComplete.Invoke);
             sequence.Play();
+        }
+
+        public void Kill(bool complete)
+        {
+            _sequence?.Kill(complete);
         }
     }
 }

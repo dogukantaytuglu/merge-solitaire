@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,12 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     public class MergeBlocksState : BaseState
     {
         private readonly Board _board;
-        private readonly BlockGroupAnimationController _blockGroupAnimationController;
 
         public bool MergeCompleted { get; private set; }
         public int MergeCount { get; private set; }
 
+        private IStateAnimation _mergeBlocksAnimation;
+        private List<List<Cell>> _mergeableGroupsBuffer;
 
         private Vector2Int[] _directions = new[]
         {
@@ -21,10 +23,11 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         };
 
 
-        public MergeBlocksState(GameController gameController, Board board, BlockGroupAnimationController blockGroupAnimationController) : base(gameController)
+        public MergeBlocksState(GameController gameController, Board board, FoundationsController foundationsController, BlockFactory blockFactory) : base(gameController)
         {
             _board = board;
-            _blockGroupAnimationController = blockGroupAnimationController;
+            _mergeableGroupsBuffer = new();
+            _mergeBlocksAnimation = new MergeBlocksStateAnimation(gameController, foundationsController, blockFactory, _mergeableGroupsBuffer);
         }
 
         public override void OnEnter()
@@ -35,28 +38,40 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             MergeBlocks();
         }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+            _mergeBlocksAnimation?.Kill(true);
+        }
+
         private void MergeBlocks()
         {
             MergeCompleted = false;
             // Check for all cells that are not empty 
-            var mergeableGroups = GetAllMergableCells();
-            MergeCount = mergeableGroups.Count;
-            if (MergeCount == 0)
+            if (TryFillMergeableGroupsBuffer(_mergeableGroupsBuffer))
+            {
+                MergeCount = _mergeableGroupsBuffer.Count;
+                PlayMergeAnimation(OnMergeAnimationComplete);
+            }
+            else
             {
                 MergeCompleted = true;
-                return;
             }
-            MergeGroups(mergeableGroups);
         }
         
-        private void MergeGroups(List<List<Cell>> mergeableGroups)
+        private void PlayMergeAnimation(Action onComplete)
         {
-           _blockGroupAnimationController.PlayMergeAnimation(mergeableGroups, () => MergeCompleted = true);
+            _mergeBlocksAnimation.Play(onComplete);
         }
 
-        private List<List<Cell>> GetAllMergableCells()
+        private void OnMergeAnimationComplete()
         {
-            var mergedGroups = new List<List<Cell>>();
+            MergeCompleted = true;
+        }
+
+        private bool TryFillMergeableGroupsBuffer(List<List<Cell>> buffer)
+        {
+            buffer.Clear();
             var visited = new bool[_board.Width, _board.Height];
             for(var x= 0; x < _board.Width; x++)
             {
@@ -68,12 +83,12 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var group = GetMergeableCells(cell, visited);
                     if (group.Count > 1)
                     {
-                        mergedGroups.Add(group);
+                        buffer.Add(group);
                     }
                 }
             }
-            
-            return mergedGroups;
+
+            return buffer.Count > 0;
         }
 
         private List<Cell> GetMergeableCells(Cell cell, bool[,] visited)

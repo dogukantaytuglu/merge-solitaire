@@ -5,26 +5,28 @@ using UnityEngine;
 using Whatwapp.Core.Audio;
 using Whatwapp.Core.Extensions;
 
-namespace Whatwapp.MergeSolitaire.Game
+namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
-    public class BlockGroupAnimationController
+    public class MergeBlocksStateAnimation : IStateAnimation
     {
         private readonly GameController _gameController;
         private readonly FoundationsController _foundationsController;
         private readonly BlockFactory _blockFactory;
+        private readonly List<List<Cell>> _mergeableGroups;
 
-        public BlockGroupAnimationController(GameController gameController,
-            FoundationsController foundationsController, BlockFactory blockFactory)
+        private Sequence _sequence;
+        public MergeBlocksStateAnimation(GameController gameController, FoundationsController foundationsController, BlockFactory blockFactory, List<List<Cell>> mergeableGroups)
         {
             _gameController = gameController;
             _foundationsController = foundationsController;
             _blockFactory = blockFactory;
+            _mergeableGroups = mergeableGroups;
         }
-
-        public void PlayMergeAnimation(List<List<Cell>> mergeableGroups, Action onAnimationComplete)
+        
+        public void Play(Action onComplete)
         {
-            var sequence = DOTween.Sequence();
-            foreach (var group in mergeableGroups)
+             _sequence = DOTween.Sequence();
+            foreach (var group in _mergeableGroups)
             {
                 var seedHash = new HashSet<BlockSeed>();
                 var firstCell = group[0];
@@ -53,7 +55,7 @@ namespace Whatwapp.MergeSolitaire.Game
                     {
                         SFXManager.Instance.PlayOneShot(Consts.SFX_MergeBlocks);
                         targetCell.Block = null;
-                        _gameController.Score += mergeableGroups.Count * group.Count;
+                        _gameController.Score += _mergeableGroups.Count * group.Count;
                         block.Remove();
                     });
                     groupSequence.Join(blockSequence);
@@ -86,11 +88,16 @@ namespace Whatwapp.MergeSolitaire.Game
                     }
                 });
 
-                sequence.Append(groupSequence);
+                _sequence.Append(groupSequence);
             }
 
-            sequence.OnComplete(onAnimationComplete.Invoke);
-            sequence.Play();
+            _sequence.OnComplete(onComplete.Invoke);
+            _sequence.Play();
+        }
+
+        public void Kill(bool complete)
+        {
+            _sequence.Kill(complete);
         }
     }
 }
