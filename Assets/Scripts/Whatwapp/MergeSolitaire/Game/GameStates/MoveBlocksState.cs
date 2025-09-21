@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using DG.Tweening;
-using UnityEngine;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
@@ -10,16 +8,16 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         private bool _isMovingBlocks;
         private bool _canMoveBlocks;
         private Board _board;
-        private AnimationSettings _animationSettings;
-        
+        private BlockGroupAnimationController _blockGroupAnimationController;
+
         private List<Cell> _movingCells;
         private int _startingRow;
         
-        public MoveBlocksState(GameController gameController, Board board, AnimationSettings animationSettings) : base(gameController)
+        public MoveBlocksState(GameController gameController, Board board, BlockGroupAnimationController blockGroupAnimationController) : base(gameController)
         {
             _board = board;
+            _blockGroupAnimationController = blockGroupAnimationController;
             _movingCells = new List<Cell>();
-            _animationSettings = animationSettings;
         }
 
         
@@ -74,28 +72,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
         private void MoveBlocks()
         {
-            var sequence = DOTween.Sequence();
-            
-            foreach (var cell in _movingCells)
-            {
-                var block = cell.Block;
-                var targetCell = _board.GetCell(cell.Coordinates.x, cell.Coordinates.y + 1);
-                targetCell.Block = block;
-                cell.Block = null;
-                sequence.Join(
-                    DOTween.Sequence()
-                        .AppendInterval(_animationSettings.BlockMoveDelay)
-                        .Append(block.transform.DOMove(targetCell.Position, _animationSettings.BlockMoveDuration))
-                        .OnComplete(() =>
-                        {
-                            block.Visual.ShakeScale();
-                        }));
-            }
-            sequence.OnComplete(() =>
-            {
-                _isMovingBlocks = false;
-            });
-            sequence.Play();
+            _blockGroupAnimationController.PlayMoveBlocksAnimation(_movingCells, _board, () => _isMovingBlocks = false);
         }
 
         public bool CanMoveBlocks()
