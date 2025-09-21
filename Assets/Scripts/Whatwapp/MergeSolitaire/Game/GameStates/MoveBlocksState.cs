@@ -1,23 +1,23 @@
 using System.Collections.Generic;
+using Whatwapp.MergeSolitaire.Game.StateAnimation;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class MoveBlocksState : BaseState
     {
-        
         private bool _isMovingBlocks;
         private bool _canMoveBlocks;
         private Board _board;
-        private BlockGroupAnimationController _blockGroupAnimationController;
 
         private List<Cell> _movingCells;
         private int _startingRow;
+        private IStateAnimation _stateAnimation;
         
-        public MoveBlocksState(GameController gameController, Board board, BlockGroupAnimationController blockGroupAnimationController) : base(gameController)
+        public MoveBlocksState(GameController gameController, Board board) : base(gameController)
         {
             _board = board;
-            _blockGroupAnimationController = blockGroupAnimationController;
             _movingCells = new List<Cell>();
+            _stateAnimation = new MoveBlocksStateAnimation(_movingCells, _board);
         }
 
         
@@ -72,7 +72,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
         private void MoveBlocks()
         {
-            _blockGroupAnimationController.PlayMoveBlocksAnimation(_movingCells, () => _isMovingBlocks = false);
+            _stateAnimation.Play(() => _isMovingBlocks = false);
         }
 
         public bool CanMoveBlocks()

@@ -56,11 +56,11 @@ namespace Whatwapp.MergeSolitaire.Game
             _stateMachine = new StateMachine();
             _sfxManager = SFXManager.Instance;
             _blockGroupAnimationController = new BlockGroupAnimationController(this,
-                _foundationsController, _blockFactory, board);
+                _foundationsController, _blockFactory);
 
             var generateLevel = new GenerateLevelState(this, board, _gridBuilder, _blockFactory, _targetBoundedCamera);
             var extractBlock = new ExtractBlockState(this, _nextBlockController, _sfxManager);
-            var moveBlocks = new MoveBlocksState(this, board, _blockGroupAnimationController);
+            var moveBlocks = new MoveBlocksState(this, board);
             var mergeBlocks = new MergeBlocksState(this, board, _blockGroupAnimationController);
             var playBlockState = new PlayBlockState(this, board, _nextBlockController, _sfxManager);
             var gameOver = new GameOverState(this, _sfxManager);
