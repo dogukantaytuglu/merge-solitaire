@@ -23,11 +23,15 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         };
 
 
-        public MergeBlocksState(GameController gameController, Board board,AnimationSettings animationSettings, IStateAnimation stateAnimation) : base(gameController, stateAnimation)
+        public MergeBlocksState(GameController gameController, Board board, AnimationSettings animationSettings,
+            FoundationsController foundationsController, BlockFactory blockFactory) : base(
+            gameController)
         {
             _board = board;
             _animationSettings = animationSettings;
             MergeableGroupsBuffer = new();
+            _stateAnimation =
+                new MergeBlocksStateAnimation(gameController, foundationsController, blockFactory);
         }
 
         public override void OnEnter()

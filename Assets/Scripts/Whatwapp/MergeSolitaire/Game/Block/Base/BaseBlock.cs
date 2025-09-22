@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace Whatwapp.MergeSolitaire.Game
 {
     public abstract class BaseBlock : MonoBehaviour
     {
+        public Action OnBlockDestroyed;
         public abstract Tween MoveToPosition(Vector2 targetPos);
         public abstract Tween ShakeScale();
         public virtual void PlayBlock(Cell cell)
@@ -15,6 +17,7 @@ namespace Whatwapp.MergeSolitaire.Game
         
         public void Remove()
         {
+            OnBlockDestroyed?.Invoke();
             Destroy(gameObject);
         }
 

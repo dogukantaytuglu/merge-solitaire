@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Whatwapp.MergeSolitaire.Game.Particles;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
@@ -18,12 +19,13 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             new Vector2Int(0, -1),
         };
 
-        public BombExplosionState(GameController gameController, Board board, IStateAnimation stateAnimation = null) :
-            base(gameController, stateAnimation)
+        public BombExplosionState(GameController gameController, Board board, ParticleFactory particleFactory) :
+            base(gameController)
         {
             _board = board;
+            _stateAnimation = new BombExplosionStateAnimation(particleFactory);
         }
-        
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -39,8 +41,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 ExplosionComplete = true;
                 return;
             }
-
-
+            
             foreach (var direction in _directions)
             {
                 var neighbourCell = _board.GetCell(BombCell.Coordinates + direction);

@@ -7,7 +7,6 @@ namespace Whatwapp.MergeSolitaire.Game
         [Header("References")]
         [SerializeField] private CellVisual _cellVisual;
         
-        
         public Vector2 Position => transform.position;
         public Vector2Int Coordinates { get; private set; }
         public bool IsEmpty => _block == null;
@@ -28,14 +27,14 @@ namespace Whatwapp.MergeSolitaire.Game
                 if (_block != null)
                 {
                     Debug.LogException(new System.Exception($"Block already exists in cell {Coordinates}"));
-                    Destroy(_block.gameObject);
+                    _block.Remove();
                 }
 
                 _block = value;
                 _block.transform.SetParent(transform);
             }
         }
-        
+
         private BaseBlock _block;
 
 

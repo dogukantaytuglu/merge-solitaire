@@ -7,12 +7,11 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     {
         public bool IsStateAnimationActive => _stateAnimation?.IsAnimationActive ?? false;
         protected GameController _gameController;
-        private IStateAnimation _stateAnimation;
+        protected IStateAnimation _stateAnimation;
 
-        protected BaseState(GameController gameController, IStateAnimation stateAnimation = null)
+        protected BaseState(GameController gameController)
         {
             _gameController = gameController;
-            _stateAnimation = stateAnimation;
         }
 
         public virtual void OnEnter()

@@ -18,11 +18,10 @@ namespace Whatwapp.MergeSolitaire.Game
         public Sequence Explode(Action remove)
         {
             _explosionSequence?.Kill(true);
-            var t = transform;
             return _explosionSequence = DOTween.Sequence()
-                .Append(t.DOScale(Vector3.one * _animationSettings.BombInflateAmount,
+                .Append(transform.DOScale(Vector3.one * _animationSettings.BombInflateAmount,
                     _animationSettings.BombExplodeDuration))
-                .Join(t.DOShakeRotation(_animationSettings.BombExplodeDuration, _animationSettings.BombShakeStrength))
+                .Join(transform.DOShakeRotation(_animationSettings.BombExplodeDuration, _animationSettings.BombShakeStrength))
                 .OnComplete(remove.Invoke);
         }
     }

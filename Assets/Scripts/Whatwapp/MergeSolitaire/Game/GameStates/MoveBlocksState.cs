@@ -14,11 +14,13 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         private int _startingRow;
         private bool _isWaitingForMovementDelay;
         
-        public MoveBlocksState(GameController gameController, Board board, AnimationSettings animationSettings, IStateAnimation stateAnimation) : base(gameController, stateAnimation)
+        public MoveBlocksState(GameController gameController, Board board, AnimationSettings animationSettings) : base(gameController)
         {
             _board = board;
             _animationSettings = animationSettings;
             MovingCellsBuffer = new List<Cell>();
+            _stateAnimation = new MoveBlocksStateAnimation(board);
+
         }
         
         public override void OnEnter()

@@ -181,7 +181,6 @@ MonoBehaviour:
   _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
   _colorSettings: {fileID: 11400000, guid: 4015302aa52ea4aaaac6e9f13dddca17, type: 2}
   _trailParticle: {fileID: 4263841614165404301}
-  _explosionPartice: {fileID: 6362037975466815873}
 --- !u!1 &7972907845744663248
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +253,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1775078047
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 86ca35306b58bcb4fb26ddd3ea2d50e2, type: 3}
   m_Color: {r: 0.7176471, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -399,11 +398,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abf8d5b763621654486813c5c8af8234, type: 3}
---- !u!198 &6362037975466815873 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8714244275622671898, guid: abf8d5b763621654486813c5c8af8234, type: 3}
-  m_PrefabInstance: {fileID: 2352366831035402139}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6362037975466815878 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8714244275622671901, guid: abf8d5b763621654486813c5c8af8234, type: 3}

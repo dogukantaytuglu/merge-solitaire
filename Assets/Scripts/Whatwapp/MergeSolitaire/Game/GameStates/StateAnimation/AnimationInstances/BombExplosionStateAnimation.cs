@@ -37,7 +37,17 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             _sequence.AppendCallback(() => explosionParticle.Play());
             _sequence.JoinCallback(() => SFXManager.Instance.PlayOneShot("Explosion"));
 
-            _sequence.OnComplete(() => IsAnimationActive = false);
+            _sequence.OnComplete(() =>
+            {
+                foreach (var cell in cellsToExplode)
+                {
+                    cell.Block = null;
+                }
+
+                BombExplosionState.BombCell.Block = null;
+                
+                IsAnimationActive = false;
+            });
         }
 
         public void Kill(bool complete)

@@ -50,7 +50,7 @@ namespace Whatwapp.MergeSolitaire.Game
                     .SetEase(Ease.InBack)
                     .OnComplete(() =>
                     {
-                        Destroy(_block.gameObject);
+                        _block.Remove();
                     }));
             }
             sequence.Join(block.transform.DOMove(_attachPoint.position, _animationSettings.AttachDuration)
