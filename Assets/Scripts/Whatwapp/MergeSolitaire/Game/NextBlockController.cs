@@ -15,8 +15,7 @@ namespace Whatwapp.MergeSolitaire.Game
         
         [Header("Settings")]
         [SerializeField] private AnimationSettings _animationSettings;
-        [SerializeField] [Range(0f, 1f)] private float _probabilityOfGoodBlock = 0.5f;
-        [SerializeField] [Range(0f, 1f)] private float _probabilityToSpawnAttachableBlock = 0.1f;
+        [SerializeField] private GameSettings _gameSettings;
         
         public bool IsReady => _nextBlock != null && _isReady;
         public bool HasBlock => _nextBlock != null;
@@ -31,9 +30,9 @@ namespace Whatwapp.MergeSolitaire.Game
             var seed = EnumUtils.GetRandom<BlockSeed>();
             var value = EnumUtils.GetRandom<BlockValue>(BlockValue.Ace, BlockValue.King);
 
-            if (Random.value < _probabilityOfGoodBlock)
+            if (Random.value < _gameSettings.ProbabilityOfGoodBlock)
             {
-                if (Random.value < _probabilityToSpawnAttachableBlock)
+                if (Random.value < _gameSettings.ProbabilityToSpawnAttachableBlock)
                 {
                     value = ExtractAttachableBlock(value);
                 }

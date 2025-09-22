@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -20.4, y: 0}
+  m_AnchoredPosition: {x: -20.399994, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &124797643
@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockPrefab: {fileID: 1399529986098310984, guid: 0b4734375851c4f84aa141fb4dca036c, type: 3}
+  _bombBlockPrefab: {fileID: 6434762847559176709, guid: 40d04323ebc41ad43a6b1af67f2058f2, type: 3}
 --- !u!4 &328639664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8255595386286980235, guid: 95dee0b324c9149f79760f862e1c8604, type: 3}
@@ -619,7 +620,6 @@ MonoBehaviour:
   _nextBlockController: {fileID: 1656265683}
   _foundationsController: {fileID: 698506388}
   _scoreBox: {fileID: 141928563}
-  _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
 --- !u!4 &652229317
 Transform:
   m_ObjectHideFlags: 0
@@ -1269,8 +1269,7 @@ MonoBehaviour:
   _board: {fileID: 1440890719}
   _foundationsController: {fileID: 698506388}
   _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
-  _probabilityOfGoodBlock: 0.108
-  _probabilityToSpawnAttachableBlock: 0.5
+  _gameSettings: {fileID: 0}
 --- !u!1 &1782320449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,8 +1609,8 @@ Canvas:
   m_GameObject: {fileID: 1982188657}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

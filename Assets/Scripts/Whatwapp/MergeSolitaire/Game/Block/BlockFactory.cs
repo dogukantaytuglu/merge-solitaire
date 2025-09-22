@@ -7,6 +7,9 @@ namespace Whatwapp.MergeSolitaire.Game
     {
         [Header("Prefabs")]
         [SerializeField] private Block _blockPrefab;
+        [Header("Prefabs")]
+        [SerializeField] private BombBlock _bombBlockPrefab;
+
 
         public Block Create(BlockValue value, BlockSeed seed)
         {
@@ -14,7 +17,13 @@ namespace Whatwapp.MergeSolitaire.Game
             block.Init(value, seed);
             return block;
         }
-        
+
+        public BombBlock CreateBombBlock()
+        {
+            var bombBlock = Instantiate(_bombBlockPrefab, transform);
+            bombBlock.Init();
+            return bombBlock;
+        }
 
         public Block CreateStartingBlock()
         {

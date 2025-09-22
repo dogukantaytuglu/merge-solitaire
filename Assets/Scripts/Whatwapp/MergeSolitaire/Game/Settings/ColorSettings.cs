@@ -8,12 +8,16 @@ namespace Whatwapp.MergeSolitaire.Game
         [Header("Block Colors")]
         [SerializeField] private Color[] _blockColors;
         
+        [Header("Special Block Colors")]
+        [SerializeField] private Color _bombBlockColor;
+        
         [Header("Block Sprites")]
         [SerializeField] private Sprite[] _blockSprites;
         
         [Header("Foundation Sprites")]
         [SerializeField] private Sprite[] _foundationSprites;
         
+        public Color BombBlockColor => _bombBlockColor;
         public Color[] BlockColors => _blockColors;
         public Color GetBlockColor(BlockSeed seed) => _blockColors[(int) seed];
         public Sprite GetBlockSprite(BlockSeed seed) => _blockSprites[(int) seed];

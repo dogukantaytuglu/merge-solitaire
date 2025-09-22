@@ -5,18 +5,9 @@ using Whatwapp.Core.Audio;
 
 namespace Whatwapp.MergeSolitaire.Game
 {
-    public class BlockVisual : MonoBehaviour
+    public class BlockVisual : BaseBlockVisual
     {
-        [Header("Settings")] [SerializeField] private ColorSettings _colorSettings;
-        [SerializeField] private AnimationSettings _animationSettings;
-
-        [Header("References")] [SerializeField]
-        private SpriteRenderer _spriteRenderer;
-
         [SerializeField] private TextMeshPro _text;
-
-
-        private Vector3 _defaultScale;
 
         public void Init(BlockValue value, BlockSeed seed)
         {
@@ -25,24 +16,10 @@ namespace Whatwapp.MergeSolitaire.Game
             _text.text = value.Symbol();
         }
 
-        private void ShakeScale()
-        {
-            transform.DOShakeScale(_animationSettings.BlockShakeDuration, _animationSettings.BlockShakeStrength)
-                .OnComplete(() => transform.localScale = _defaultScale);
-        }
-
         public Tween PlayTremorAnimation()
         {
             return transform.DOShakeScale(_animationSettings.TremorDuration,
                 _animationSettings.TremorStrength);
-        }
-
-        public Sequence MoveToPosition(Vector2 targetPos)
-        {
-            return DOTween.Sequence()
-                .AppendInterval(_animationSettings.BlockMoveDelay)
-                .Append(transform.DOMove(targetPos, _animationSettings.BlockMoveDuration))
-                .OnComplete(ShakeScale);
         }
 
         private Tween MoveToMergePosition(Vector2 targetPos)

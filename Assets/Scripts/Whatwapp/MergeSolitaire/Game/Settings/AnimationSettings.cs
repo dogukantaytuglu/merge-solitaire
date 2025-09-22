@@ -9,7 +9,6 @@ namespace Whatwapp.MergeSolitaire.Game
         [Header("Block Spawn")]
         [SerializeField] private float _blockSpawnDuration = 0.25f;
         
-        
         [Header("Block Move")]
         [SerializeField] private float _blockMoveDuration = 0.01f;
         [SerializeField] private float _blockMoveDelay = 0.0025f;
@@ -30,6 +29,9 @@ namespace Whatwapp.MergeSolitaire.Game
         [Header("Cell")]
         [SerializeField] private float _highlightDuration = 0.05f;
         [SerializeField] private float _highlightDelay = 0.03f;
+
+        [Header("Bomb Block")] 
+        [SerializeField] private float _explosionDelay = 1f;
         
         public float BlockMoveDuration => _blockMoveDuration;
         public float BlockMoveDelay => _blockMoveDelay;
