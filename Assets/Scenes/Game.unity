@@ -1269,7 +1269,7 @@ MonoBehaviour:
   _board: {fileID: 1440890719}
   _foundationsController: {fileID: 698506388}
   _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
-  _gameSettings: {fileID: 0}
+  _gameSettings: {fileID: 11400000, guid: 725d0019bc4196646b883a0042080529, type: 2}
 --- !u!1 &1782320449
 GameObject:
   m_ObjectHideFlags: 0
