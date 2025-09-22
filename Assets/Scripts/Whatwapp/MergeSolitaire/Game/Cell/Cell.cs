@@ -32,7 +32,6 @@ namespace Whatwapp.MergeSolitaire.Game
                 }
 
                 _block = value;
-                _block.transform.position = Position;
                 _block.transform.SetParent(transform);
             }
         }

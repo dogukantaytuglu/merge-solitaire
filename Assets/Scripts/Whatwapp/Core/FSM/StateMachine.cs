@@ -44,7 +44,7 @@ namespace Whatwapp.Core.FSM
         public void Update()
         {
             var transition = GetTransition();
-            if (transition != null)
+            if (transition != null && _currentState.IsStateAnimationActive == false)
                 SetState(transition.To);
 
             _currentState?.Update();

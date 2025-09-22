@@ -6,10 +6,10 @@ namespace Whatwapp.MergeSolitaire.Game
     public class MergeBlock : BaseBlock
     {
         [SerializeField] private MergeBlockVisual _visual;
-        
+
         private BlockValue _value;
         private BlockSeed _seed;
-        
+
         public BlockValue Value => _value;
         public BlockSeed Seed => _seed;
 
@@ -19,22 +19,27 @@ namespace Whatwapp.MergeSolitaire.Game
             _seed = seed;
             _visual.Init(value, seed);
         }
-        
-        public override Sequence MoveToPosition(Vector2 targetPos)
+
+        public override Tween MoveToPosition(Vector2 targetPos)
         {
             return _visual.MoveToPosition(targetPos);
         }
-        
+
+        public override Tween ShakeScale()
+        {
+            return _visual.ShakeScale();
+        }
+
         public Tween PlayScaleDownAnimation()
         {
             return _visual.PlayScaleDownAnimation();
         }
-        
+
         public Tween PlayTremorAnimation()
         {
             return _visual.PlayTremorAnimation();
         }
-        
+
         public Sequence PlayMergeAnimation(Vector3 targetPos)
         {
             return _visual.PlayMergeAnimation(targetPos);

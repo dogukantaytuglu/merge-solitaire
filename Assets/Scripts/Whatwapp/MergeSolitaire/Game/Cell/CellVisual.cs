@@ -26,7 +26,7 @@ namespace Whatwapp.MergeSolitaire.Game
         
         public void Highlight()
         {
-            Debug.Log("Highlighting cell");
+            // Debug.Log("Highlighting cell");
             
              var sequence = DOTween.Sequence();
              sequence.AppendInterval(_animationSettings.HighlightDelay * _coordinates.y);
@@ -35,7 +35,7 @@ namespace Whatwapp.MergeSolitaire.Game
              sequence.Append(_backgroundRenderer.DOColor(_defaultColor, _animationSettings.HighlightDuration));
              sequence.OnComplete(() =>
              {
-                 Debug.Log("Highlight completed");
+                 // Debug.Log("Highlight completed");
                  _backgroundRenderer.color = _defaultColor;
              });
              sequence.Play();

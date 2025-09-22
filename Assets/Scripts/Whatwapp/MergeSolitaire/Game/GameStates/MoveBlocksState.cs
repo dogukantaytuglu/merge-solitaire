@@ -1,57 +1,54 @@
 using System.Collections.Generic;
+using DG.Tweening;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class MoveBlocksState : BaseState
     {
-        private bool _isMovingBlocks;
+        public static List<Cell> MovingCellsBuffer;
+
         private bool _canMoveBlocks;
         private Board _board;
+        private readonly AnimationSettings _animationSettings;
 
-        private List<Cell> _movingCellsBuffer;
         private int _startingRow;
-        private IStateAnimation _stateAnimation;
+        private bool _isWaitingForMovementDelay;
         
-        public MoveBlocksState(GameController gameController, Board board) : base(gameController)
+        public MoveBlocksState(GameController gameController, Board board, AnimationSettings animationSettings, IStateAnimation stateAnimation) : base(gameController, stateAnimation)
         {
             _board = board;
-            _movingCellsBuffer = new List<Cell>();
-            _stateAnimation = new MoveBlocksStateAnimation(_movingCellsBuffer, _board);
+            _animationSettings = animationSettings;
+            MovingCellsBuffer = new List<Cell>();
         }
         
         public override void OnEnter()
         {
+            _isWaitingForMovementDelay = true;
+            DOVirtual.DelayedCall(_animationSettings.BlockMoveDelay, () => _isWaitingForMovementDelay = false);
             base.OnEnter();
-            _movingCellsBuffer.Clear();
-            _isMovingBlocks = false;
+            MovingCellsBuffer.Clear();
             _startingRow = _board.Height - 2;
         }
         
         public override void OnExit()
         {
             base.OnExit();
-            _stateAnimation.Kill(true);
-            _isMovingBlocks = false;
             HasMovableBlocks();
         }
         
         public override void Update()
         {
-            if (_isMovingBlocks) return;
-            _isMovingBlocks = true;
+            if (_isWaitingForMovementDelay) return;
+            if (IsStateAnimationActive) return;
             if (TryFindMovableCells())
             {
-                MoveBlocks();
-            }
-            else
-            {
-                _isMovingBlocks = false;
+                PlayStateAnimation();
             }
         }
 
         private bool TryFindMovableCells()
         {
-            _movingCellsBuffer.Clear();
+            MovingCellsBuffer.Clear();
             for(var i=0; i<_board.Width; i++)
             {
                 for(var j=_startingRow; j>=0; j--)
@@ -63,25 +60,15 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var upperCell = _board.GetCell(i, j + 1);
                     if (upperCell == null || !upperCell.IsEmpty) continue;
                     
-                    _movingCellsBuffer.Add(cell);
+                    MovingCellsBuffer.Add(cell);
                 }
             }
-            return _movingCellsBuffer.Count > 0;
+            return MovingCellsBuffer.Count > 0;
         }
-
-        private void MoveBlocks()
-        {
-            _stateAnimation.Play(OnMovementComplete);
-        }
-
-        private void OnMovementComplete()
-        {
-            _isMovingBlocks = false;
-        }
-
+        
         public bool CanMoveBlocks()
         {
-            return _isMovingBlocks || HasMovableBlocks();
+            return HasMovableBlocks();
         }
         
         private bool HasMovableBlocks()

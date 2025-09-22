@@ -5,11 +5,14 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public abstract class BaseState : IState
     {
+        public bool IsStateAnimationActive => _stateAnimation?.IsAnimationActive ?? false;
         protected GameController _gameController;
+        private IStateAnimation _stateAnimation;
 
-        protected BaseState(GameController gameController)
+        protected BaseState(GameController gameController, IStateAnimation stateAnimation = null)
         {
             _gameController = gameController;
+            _stateAnimation = stateAnimation;
         }
 
         public virtual void OnEnter()
@@ -27,6 +30,12 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
         public virtual void OnExit()
         {
+            _stateAnimation?.Kill(true);
+        }
+
+        protected void PlayStateAnimation()
+        {
+            _stateAnimation?.Play();
         }
     }
 }

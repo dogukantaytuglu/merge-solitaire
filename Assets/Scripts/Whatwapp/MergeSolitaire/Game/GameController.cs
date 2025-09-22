@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using Whatwapp.Core.Cameras;
 using Whatwapp.Core.FSM;
@@ -17,6 +18,7 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private BlockFactory _blockFactory;
         [SerializeField] private NextBlockController _nextBlockController;
         [SerializeField] private FoundationsController _foundationsController;
+        [SerializeField] private AnimationSettings _animationSettings;
 
         [SerializeField] private ScoreBox _scoreBox;
 
@@ -52,13 +54,17 @@ namespace Whatwapp.MergeSolitaire.Game
 
         private void Start()
         {
+            DOTween.SetTweensCapacity(500, 312);
             _stateMachine = new StateMachine();
             _sfxManager = SFXManager.Instance;
             
+            var mergeBlocksAnimation = new MergeBlocksStateAnimation(this, _foundationsController, _blockFactory);
+            var moveBlockStateAnimation = new MoveBlocksStateAnimation(board);
+            
             var generateLevel = new GenerateLevelState(this, board, _gridBuilder, _blockFactory, _targetBoundedCamera);
             var extractBlock = new ExtractBlockState(this, _nextBlockController, _sfxManager);
-            var moveBlocks = new MoveBlocksState(this, board);
-            var mergeBlocks = new MergeBlocksState(this, board, _foundationsController, _blockFactory);
+            var moveBlocks = new MoveBlocksState(this, board, _animationSettings, moveBlockStateAnimation);
+            var mergeBlocks = new MergeBlocksState(this, board, _animationSettings, mergeBlocksAnimation);
             var playBlockState = new PlayBlockState(this, board, _nextBlockController, _sfxManager);
             var gameOver = new GameOverState(this, _sfxManager);
             var victory = new VictoryState(this, _sfxManager);
@@ -71,7 +77,10 @@ namespace Whatwapp.MergeSolitaire.Game
                 new Predicate(() => extractBlock.ExtractCompleted));
 
             _stateMachine.AddTransition(moveBlocks, mergeBlocks,
-                new Predicate(() => moveBlocks.CanMoveBlocks() == false));
+                new Predicate(() => moveBlocks.CanMoveBlocks() == false));            
+            
+            _stateMachine.AddTransition(moveBlocks, mergeBlocks,
+                new Predicate(() => false));
 
             _stateMachine.AddTransition(mergeBlocks, victory,
                 new Predicate(() => _foundationsController.AllFoundationsCompleted));

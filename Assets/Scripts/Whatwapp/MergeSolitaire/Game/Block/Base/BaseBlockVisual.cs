@@ -5,24 +5,30 @@ namespace Whatwapp.MergeSolitaire.Game
 {
     public class BaseBlockVisual : MonoBehaviour
     {
-        [Header("Settings")]
-        [SerializeField] protected AnimationSettings _animationSettings;
-        [Header("Settings")] 
-        [SerializeField] protected ColorSettings _colorSettings;
+        [Header("Settings")] [SerializeField] protected AnimationSettings _animationSettings;
+        [Header("Settings")] [SerializeField] protected ColorSettings _colorSettings;
 
-        public Sequence MoveToPosition(Vector2 targetPos)
+        private Tween _shakeTween;
+        private Tween _movementTween;
+        private Vector3 _initScale;
+
+        private void Awake()
         {
-            return DOTween.Sequence()
-                .AppendInterval(_animationSettings.BlockMoveDelay)
-                .Append(transform.DOMove(targetPos, _animationSettings.BlockMoveDuration))
-                .OnComplete(ShakeScale);
+            _initScale = transform.localScale;
         }
-        
-        private void ShakeScale()
+
+        public Tween MoveToPosition(Vector2 targetPos)
         {
-            var initScale = transform.localScale;
-            transform.DOShakeScale(_animationSettings.BlockShakeDuration, _animationSettings.BlockShakeStrength)
-                .OnComplete(() => transform.localScale = initScale);
+            _movementTween?.Kill();
+            return _movementTween = transform.DOMove(targetPos, _animationSettings.BlockMoveDuration);
+        }
+
+        public Tween ShakeScale()
+        {
+            _shakeTween?.Kill(true);
+            return _shakeTween = transform.DOShakeScale(_animationSettings.BlockShakeDuration,
+                    _animationSettings.BlockShakeStrength)
+                .OnComplete(() => transform.localScale = _initScale);
         }
     }
 }

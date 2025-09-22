@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: AnimationSettings
   m_EditorClassIdentifier: 
   _blockSpawnDuration: 0.25
-  _blockMoveDuration: 0.025
-  _blockMoveDelay: 0.01
+  _blockMoveDuration: 0.25
+  _blockMoveDelay: 0.15
   _blockMergeDuration: 0.25
-  _blockMergeDelay: 0.2
+  _blockMergeDelay: 0.5
   _tremorDuration: 0.2
   _tremorStrength: 0.4
   _blockShakeDuration: 0.15
@@ -24,3 +24,4 @@ MonoBehaviour:
   _attachDuration: 0.35
   _highlightDuration: 0.2
   _highlightDelay: 0.035
+  _explosionDelay: 1

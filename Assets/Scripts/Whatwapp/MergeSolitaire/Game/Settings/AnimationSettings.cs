@@ -44,5 +44,6 @@ namespace Whatwapp.MergeSolitaire.Game
         public float HighlightDuration => _highlightDuration;
         public float BlockShakeDuration => _blockShakeDuration;
         public float BlockShakeStrength => _blockShakeStrength;
+        public float BlockMergeDelay => _blockMergeDelay;
     }
 }

@@ -1,10 +1,10 @@
-using System;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public interface IStateAnimation
     {
-        void Play(Action onComplete);
+        void Play();
         void Kill(bool complete);
+        public bool IsAnimationActive { get; }
     }
 }

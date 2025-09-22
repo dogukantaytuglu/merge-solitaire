@@ -11,9 +11,14 @@ namespace Whatwapp.MergeSolitaire.Game
         {
         }
 
-        public override Sequence MoveToPosition(Vector2 targetPos)
+        public override Tween MoveToPosition(Vector2 targetPos)
         {
             return _visual.MoveToPosition(targetPos);
+        }
+
+        public override Tween ShakeScale()
+        {
+           return _visual.ShakeScale();
         }
     }
 }

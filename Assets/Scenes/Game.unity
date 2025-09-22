@@ -619,6 +619,7 @@ MonoBehaviour:
   _blockFactory: {fileID: 185977774}
   _nextBlockController: {fileID: 1656265683}
   _foundationsController: {fileID: 698506388}
+  _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
   _scoreBox: {fileID: 141928563}
 --- !u!4 &652229317
 Transform:

@@ -56,6 +56,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             
             var block = _nextBlockController.PopBlock();
             cell.Block = block;
+            block.transform.position = cell.Position;
             _blockPlayed = true;
             PlayBlockCompleted = true;
         }

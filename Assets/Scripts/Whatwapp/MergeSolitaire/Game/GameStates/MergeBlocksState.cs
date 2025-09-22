@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
@@ -7,12 +7,12 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     public class MergeBlocksState : BaseState
     {
         private readonly Board _board;
+        private readonly AnimationSettings _animationSettings;
 
         public bool MergeCompleted { get; private set; }
         public int MergeCount { get; private set; }
 
-        private IStateAnimation _mergeBlocksAnimation;
-        private List<List<Cell>> _mergeableGroupsBuffer;
+        public static List<List<Cell>> MergeableGroupsBuffer;
 
         private Vector2Int[] _directions = new[]
         {
@@ -23,13 +23,11 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         };
 
 
-        public MergeBlocksState(GameController gameController, Board board, FoundationsController foundationsController,
-            BlockFactory blockFactory) : base(gameController)
+        public MergeBlocksState(GameController gameController, Board board,AnimationSettings animationSettings, IStateAnimation stateAnimation) : base(gameController, stateAnimation)
         {
             _board = board;
-            _mergeableGroupsBuffer = new();
-            _mergeBlocksAnimation = new MergeBlocksStateAnimation(gameController, foundationsController, blockFactory,
-                _mergeableGroupsBuffer);
+            _animationSettings = animationSettings;
+            MergeableGroupsBuffer = new();
         }
 
         public override void OnEnter()
@@ -37,37 +35,19 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             base.OnEnter();
             MergeCompleted = false;
             MergeCount = 0;
-            MergeBlocks();
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-            _mergeBlocksAnimation?.Kill(true);
+            DOVirtual.DelayedCall(_animationSettings.BlockMergeDelay, MergeBlocks);
         }
 
         private void MergeBlocks()
         {
             MergeCompleted = false;
             // Check for all cells that are not empty 
-            if (TryFillMergeableGroupsBuffer(_mergeableGroupsBuffer))
+            if (TryFillMergeableGroupsBuffer(MergeableGroupsBuffer))
             {
-                MergeCount = _mergeableGroupsBuffer.Count;
-                PlayMergeAnimation(OnMergeAnimationComplete);
+                MergeCount = MergeableGroupsBuffer.Count;
+                PlayStateAnimation();
             }
-            else
-            {
-                MergeCompleted = true;
-            }
-        }
 
-        private void PlayMergeAnimation(Action onComplete)
-        {
-            _mergeBlocksAnimation.Play(onComplete);
-        }
-
-        private void OnMergeAnimationComplete()
-        {
             MergeCompleted = true;
         }
 

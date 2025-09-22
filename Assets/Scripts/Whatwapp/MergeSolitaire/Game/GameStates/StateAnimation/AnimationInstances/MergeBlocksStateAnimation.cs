@@ -9,24 +9,27 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class MergeBlocksStateAnimation : IStateAnimation
     {
+        public bool IsAnimationActive { get; private set; }
+
         private readonly GameController _gameController;
         private readonly FoundationsController _foundationsController;
         private readonly BlockFactory _blockFactory;
-        private readonly List<List<Cell>> _mergeableGroups;
 
         private Sequence _sequence;
-        public MergeBlocksStateAnimation(GameController gameController, FoundationsController foundationsController, BlockFactory blockFactory, List<List<Cell>> mergeableGroups)
+        public MergeBlocksStateAnimation(GameController gameController, FoundationsController foundationsController, BlockFactory blockFactory)
         {
             _gameController = gameController;
             _foundationsController = foundationsController;
             _blockFactory = blockFactory;
-            _mergeableGroups = mergeableGroups;
         }
         
-        public void Play(Action onComplete)
+        public void Play()
         {
+            IsAnimationActive = true;
              _sequence = DOTween.Sequence();
-            foreach (var group in _mergeableGroups)
+             var mergeableGroups = MergeBlocksState.MergeableGroupsBuffer;
+             
+            foreach (var group in mergeableGroups)
             {
                 var seedHash = new HashSet<BlockSeed>();
                 var firstCell = group[0];
@@ -58,7 +61,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     {
                         SFXManager.Instance.PlayOneShot(Consts.SFX_MergeBlocks);
                         targetCell.Block = null;
-                        _gameController.Score += _mergeableGroups.Count * group.Count;
+                        _gameController.Score += mergeableGroups.Count * group.Count;
                         block.Remove();
                     });
                     groupSequence.Join(blockSequence);
@@ -77,6 +80,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var nextValue = value.Next(true);
                     var newBlock = _blockFactory.Create(nextValue, seed);
                     firstCell.Block = newBlock;
+                    newBlock.transform.position = firstCell.Position;
                     newBlock.PlayScaleUpAnimation();
             
                     foreach (var seedInGroup in seedHash)
@@ -93,8 +97,8 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             
                 _sequence.Append(groupSequence);
             }
-            
-            _sequence.OnComplete(onComplete.Invoke);
+
+            _sequence.OnComplete(() => IsAnimationActive = false);
             _sequence.Play();
         }
 
@@ -102,5 +106,6 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         {
             _sequence.Kill(complete);
         }
+
     }
 }

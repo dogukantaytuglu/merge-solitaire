@@ -1,36 +1,40 @@
-using System;
-using System.Collections.Generic;
 using DG.Tweening;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class MoveBlocksStateAnimation : IStateAnimation
     {
-        private readonly IReadOnlyCollection<Cell> _movingCells;
+        public bool IsAnimationActive { get; private set; }
         private readonly Board _board;
-        
+
         private Sequence _sequence;
 
-        public MoveBlocksStateAnimation(IReadOnlyCollection<Cell> movingCells, Board board)
+        public MoveBlocksStateAnimation(Board board)
         {
-            _movingCells = movingCells;
             _board = board;
         }
 
-        public void Play(Action onComplete)
+        public void Play()
         {
-            var sequence = DOTween.Sequence();
-            foreach (var cell in _movingCells)
+            IsAnimationActive = true;
+            _sequence = DOTween.Sequence();
+            foreach (var cell in MoveBlocksState.MovingCellsBuffer)
             {
                 var block = cell.Block;
                 var targetCell = _board.GetCell(cell.Coordinates.x, cell.Coordinates.y + 1);
                 targetCell.Block = block;
                 cell.Block = null;
-                sequence.Join(block.MoveToPosition(targetCell.Position));
+                var upperCell = _board.GetCell(cell.Coordinates.x, cell.Coordinates.y + 1);
+                var sequence = DOTween.Sequence();
+                sequence.Append(block.MoveToPosition(targetCell.Position));
+                if (upperCell == null || upperCell.IsEmpty == false)
+                {
+                    sequence.Append(block.ShakeScale());
+                }
             }
 
-            sequence.OnComplete(onComplete.Invoke);
-            sequence.Play();
+            _sequence.OnComplete(() => IsAnimationActive = false);
+            _sequence.Play();
         }
 
         public void Kill(bool complete)
