@@ -28,7 +28,12 @@ namespace Whatwapp.MergeSolitaire.Game
             _shakeTween?.Kill(true);
             return _shakeTween = transform.DOShakeScale(_animationSettings.BlockShakeDuration,
                     _animationSettings.BlockShakeStrength)
-                .OnComplete(() => transform.localScale = _initScale);
+                .OnComplete(ResetScale);
+        }
+
+        protected void ResetScale()
+        {
+            transform.localScale = _initScale;
         }
     }
 }

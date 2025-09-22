@@ -9,6 +9,7 @@ namespace Whatwapp.MergeSolitaire.Game
         
         public void Init()
         {
+            _visual.EnableTrail(false);
         }
 
         public override Tween MoveToPosition(Vector2 targetPos)
@@ -19,6 +20,17 @@ namespace Whatwapp.MergeSolitaire.Game
         public override Tween ShakeScale()
         {
            return _visual.ShakeScale();
+        }
+
+        public override void PlayBlock(Cell cell)
+        {
+            base.PlayBlock(cell);
+            _visual.EnableTrail(true);
+        }
+
+        public override Sequence Explode()
+        {
+            return _visual.Explode(Remove);
         }
     }
 }

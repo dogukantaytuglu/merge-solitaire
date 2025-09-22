@@ -5,7 +5,6 @@ namespace Whatwapp.MergeSolitaire.Game
     [CreateAssetMenu(menuName = "MergeSolitaire/Settings/Animations", fileName = "AnimationSettings")]
     public class AnimationSettings : ScriptableObject
     {
-        
         [Header("Block Spawn")]
         [SerializeField] private float _blockSpawnDuration = 0.25f;
         
@@ -32,6 +31,9 @@ namespace Whatwapp.MergeSolitaire.Game
 
         [Header("Bomb Block")] 
         [SerializeField] private float _explosionDelay = 1f;
+        [SerializeField] private float _bombInflateAmount = 1.3f;
+        [SerializeField] private float _bombExplodeDuration = 1f;
+        [SerializeField] private float _bombShakeStrength = 90f;
         
         public float BlockMoveDuration => _blockMoveDuration;
         public float BlockMoveDelay => _blockMoveDelay;
@@ -45,5 +47,8 @@ namespace Whatwapp.MergeSolitaire.Game
         public float BlockShakeDuration => _blockShakeDuration;
         public float BlockShakeStrength => _blockShakeStrength;
         public float BlockMergeDelay => _blockMergeDelay;
+        public float BombInflateAmount => _bombInflateAmount;
+        public float BombExplodeDuration => _bombExplodeDuration;
+        public float BombShakeStrength => _bombShakeStrength;
     }
 }

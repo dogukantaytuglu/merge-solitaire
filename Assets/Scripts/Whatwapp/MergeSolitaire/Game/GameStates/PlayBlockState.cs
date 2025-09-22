@@ -1,5 +1,6 @@
 using UnityEngine;
 using Whatwapp.Core.Audio;
+using Whatwapp.Core.Logger;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
@@ -8,7 +9,6 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         private Board _board;
         private NextBlockController _nextBlockController;
         private SFXManager _sfxManager;
-        private bool _blockPlayed;
         
         
         public PlayBlockState(GameController gameController, Board board, NextBlockController nextBlockController,
@@ -23,13 +23,12 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         {
             base.OnEnter();
             PlayBlockCompleted = false;
-            _blockPlayed = false;
             CheckGameOver();
         }
 
         public override void Update()
         { 
-            if (GameOver || _blockPlayed) return;
+            if (GameOver || PlayBlockCompleted) return;
             if (!Input.GetMouseButtonDown(0)) return;
             if (_gameController.IsPaused) return;
             
@@ -55,9 +54,8 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             }
             
             var block = _nextBlockController.PopBlock();
-            cell.Block = block;
-            block.transform.position = cell.Position;
-            _blockPlayed = true;
+            block.PlayBlock(cell);
+            PlayedBlock = block;
             PlayBlockCompleted = true;
         }
 
@@ -70,7 +68,8 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 GameOver = true;
             }
         }
-
+        
+        public BaseBlock PlayedBlock { get; private set; }
         public bool PlayBlockCompleted { get; private set; }
         public bool GameOver { get; private set; }
     }

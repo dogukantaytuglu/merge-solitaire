@@ -11,7 +11,7 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private BombBlock _bombBlockPrefab;
 
 
-        public MergeBlock Create(BlockValue value, BlockSeed seed)
+        public MergeBlock CreateMergeBlock(BlockValue value, BlockSeed seed)
         {
             var block = Instantiate(_blockPrefab, this.transform);
             block.Init(value, seed);
@@ -29,7 +29,7 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             var value = EnumUtils.GetRandom<BlockValue>(BlockValue.Ace, BlockValue.King);
             var seed = EnumUtils.GetRandom<BlockSeed>();
-            return Create(value, seed);
+            return CreateMergeBlock(value, seed);
         }
     }
 }

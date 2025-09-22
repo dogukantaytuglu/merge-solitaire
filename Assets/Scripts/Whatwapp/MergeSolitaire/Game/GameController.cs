@@ -4,6 +4,7 @@ using Whatwapp.Core.Cameras;
 using Whatwapp.Core.FSM;
 using Whatwapp.Core.Audio;
 using Whatwapp.MergeSolitaire.Game.GameStates;
+using Whatwapp.MergeSolitaire.Game.Particles;
 using Whatwapp.MergeSolitaire.Game.UI;
 
 namespace Whatwapp.MergeSolitaire.Game
@@ -19,6 +20,7 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private NextBlockController _nextBlockController;
         [SerializeField] private FoundationsController _foundationsController;
         [SerializeField] private AnimationSettings _animationSettings;
+        [SerializeField] private ParticleFactory _particleFactory;
 
         [SerializeField] private ScoreBox _scoreBox;
 
@@ -57,13 +59,15 @@ namespace Whatwapp.MergeSolitaire.Game
             DOTween.SetTweensCapacity(500, 312);
             _stateMachine = new StateMachine();
             _sfxManager = SFXManager.Instance;
-            
+
             var mergeBlocksAnimation = new MergeBlocksStateAnimation(this, _foundationsController, _blockFactory);
             var moveBlockStateAnimation = new MoveBlocksStateAnimation(board);
-            
+            var bombExplosionStateAnimation = new BombExplosionStateAnimation(_particleFactory);
+
             var generateLevel = new GenerateLevelState(this, board, _gridBuilder, _blockFactory, _targetBoundedCamera);
             var extractBlock = new ExtractBlockState(this, _nextBlockController, _sfxManager);
             var moveBlocks = new MoveBlocksState(this, board, _animationSettings, moveBlockStateAnimation);
+            var bombExplosion = new BombExplosionState(this, board, bombExplosionStateAnimation);
             var mergeBlocks = new MergeBlocksState(this, board, _animationSettings, mergeBlocksAnimation);
             var playBlockState = new PlayBlockState(this, board, _nextBlockController, _sfxManager);
             var gameOver = new GameOverState(this, _sfxManager);
@@ -77,8 +81,14 @@ namespace Whatwapp.MergeSolitaire.Game
                 new Predicate(() => extractBlock.ExtractCompleted));
 
             _stateMachine.AddTransition(moveBlocks, mergeBlocks,
-                new Predicate(() => moveBlocks.CanMoveBlocks() == false));            
-            
+                new Predicate(() => moveBlocks.CanMoveBlocks() == false
+                                    && (playBlockState.PlayedBlock == null || playBlockState.PlayedBlock is not BombBlock)));
+
+            _stateMachine.AddTransition(moveBlocks, bombExplosion,
+                new Predicate(() => moveBlocks.CanMoveBlocks() == false 
+                                    && playBlockState.PlayedBlock != null 
+                                    && playBlockState.PlayedBlock is BombBlock));
+
             _stateMachine.AddTransition(moveBlocks, mergeBlocks,
                 new Predicate(() => false));
 
@@ -94,6 +104,8 @@ namespace Whatwapp.MergeSolitaire.Game
 
             _stateMachine.AddTransition(playBlockState, extractBlock,
                 new Predicate(() => playBlockState.PlayBlockCompleted));
+            _stateMachine.AddTransition(bombExplosion, moveBlocks,
+                new Predicate(() => bombExplosion.ExplosionComplete));
             _stateMachine.AddTransition(playBlockState, gameOver,
                 new Predicate(() => playBlockState.GameOver));
 

@@ -30,6 +30,11 @@ namespace Whatwapp.MergeSolitaire.Game
             return _visual.ShakeScale();
         }
 
+        public override Sequence Explode()
+        {
+            return _visual.Explode(Remove);
+        }
+
         public Tween PlayScaleDownAnimation()
         {
             return _visual.PlayScaleDownAnimation();

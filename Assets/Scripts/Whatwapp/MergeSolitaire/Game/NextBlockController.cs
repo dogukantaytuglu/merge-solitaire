@@ -73,7 +73,7 @@ namespace Whatwapp.MergeSolitaire.Game
                 }
             }
                 
-            _nextBlock = _blockFactory.Create(value, seed);
+            _nextBlock = _blockFactory.CreateMergeBlock(value, seed);
         }
 
         private BlockValue ExtractAttachableBlock(BlockValue value)

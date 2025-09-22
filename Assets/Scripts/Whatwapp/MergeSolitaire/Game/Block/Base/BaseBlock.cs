@@ -7,9 +7,17 @@ namespace Whatwapp.MergeSolitaire.Game
     {
         public abstract Tween MoveToPosition(Vector2 targetPos);
         public abstract Tween ShakeScale();
+        public virtual void PlayBlock(Cell cell)
+        {
+            cell.Block = this;
+            transform.position = cell.Position;
+        }
+        
         public void Remove()
         {
             Destroy(gameObject);
         }
+
+        public abstract Sequence Explode();
     }
 }

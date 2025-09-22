@@ -25,3 +25,6 @@ MonoBehaviour:
   _highlightDuration: 0.2
   _highlightDelay: 0.035
   _explosionDelay: 1
+  _bombInflateAmount: 1.1
+  _bombExplodeDuration: 0.8
+  _bombShakeStrength: 53.7

@@ -42,7 +42,7 @@ namespace Whatwapp.MergeSolitaire.Game
             var foundationPile = _foundationPiles.FirstOrDefault(x => x.Seed == info.Seed);
             if ((foundationPile == null) || (!foundationPile.CanAttach(info.Seed, info.Value))) return false;
             
-            var block = _blockFactory.Create(info.Value, info.Seed);
+            var block = _blockFactory.CreateMergeBlock(info.Value, info.Seed);
             block.transform.position = info.Position;
             foundationPile.AttachBlock(block);
             return true;

@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using TMPro;
@@ -11,7 +12,7 @@ namespace Whatwapp.MergeSolitaire.Game
         
         [Header("References")] 
         [SerializeField] protected SpriteRenderer _spriteRenderer;
-        
+
         public void Init(BlockValue value, BlockSeed seed)
         {
             _spriteRenderer.sprite = _colorSettings.GetBlockSprite(seed);
@@ -48,6 +49,12 @@ namespace Whatwapp.MergeSolitaire.Game
         private Tween MoveToMergePosition(Vector2 targetPos)
         {
             return transform.DOMove(targetPos, _animationSettings.MergeDuration);
+        }
+
+        public Sequence Explode(Action removeAction)
+        {
+            return DOTween.Sequence().AppendInterval(_animationSettings.BombExplodeDuration)
+                .AppendCallback(removeAction.Invoke);
         }
     }
 }
