@@ -9,9 +9,7 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] protected AnimationSettings _animationSettings;
         [Header("Settings")] 
         [SerializeField] protected ColorSettings _colorSettings;
-        
-        protected Vector3 _defaultScale;
-        
+
         public Sequence MoveToPosition(Vector2 targetPos)
         {
             return DOTween.Sequence()
@@ -22,8 +20,9 @@ namespace Whatwapp.MergeSolitaire.Game
         
         private void ShakeScale()
         {
+            var initScale = transform.localScale;
             transform.DOShakeScale(_animationSettings.BlockShakeDuration, _animationSettings.BlockShakeStrength)
-                .OnComplete(() => transform.localScale = _defaultScale);
+                .OnComplete(() => transform.localScale = initScale);
         }
     }
 }

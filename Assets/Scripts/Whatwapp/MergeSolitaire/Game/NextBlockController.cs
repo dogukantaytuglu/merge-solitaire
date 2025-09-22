@@ -27,6 +27,31 @@ namespace Whatwapp.MergeSolitaire.Game
         public void ExtractNextBlock()
         {
             if (_nextBlock != null) return;
+
+            if (Random.value < _gameSettings.ProbabilityToSpawnBombBlock)
+            {
+                CreateBombBlock();
+            }
+
+            else
+            {
+                CreateMergeBlock();
+            }
+            
+            
+            _nextBlock.transform.SetParent(_spawnPoint);
+            _nextBlock.transform.localScale = Vector3.zero;
+            _isReady = false;
+            AnimateSpawn();
+        }
+
+        private void CreateBombBlock()
+        {
+            _nextBlock = _blockFactory.CreateBombBlock();
+        }
+
+        private void CreateMergeBlock()
+        {
             var seed = EnumUtils.GetRandom<BlockSeed>();
             var value = EnumUtils.GetRandom<BlockValue>(BlockValue.Ace, BlockValue.King);
 
@@ -47,12 +72,8 @@ namespace Whatwapp.MergeSolitaire.Game
                     }
                 }
             }
-            
+                
             _nextBlock = _blockFactory.Create(value, seed);
-            _nextBlock.transform.SetParent(_spawnPoint);
-            _nextBlock.transform.localScale = Vector3.zero;
-            _isReady = false;
-            AnimateSpawn();
         }
 
         private BlockValue ExtractAttachableBlock(BlockValue value)

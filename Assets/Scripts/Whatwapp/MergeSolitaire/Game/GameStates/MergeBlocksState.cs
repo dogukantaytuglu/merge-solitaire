@@ -23,11 +23,13 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         };
 
 
-        public MergeBlocksState(GameController gameController, Board board, FoundationsController foundationsController, BlockFactory blockFactory) : base(gameController)
+        public MergeBlocksState(GameController gameController, Board board, FoundationsController foundationsController,
+            BlockFactory blockFactory) : base(gameController)
         {
             _board = board;
             _mergeableGroupsBuffer = new();
-            _mergeBlocksAnimation = new MergeBlocksStateAnimation(gameController, foundationsController, blockFactory, _mergeableGroupsBuffer);
+            _mergeBlocksAnimation = new MergeBlocksStateAnimation(gameController, foundationsController, blockFactory,
+                _mergeableGroupsBuffer);
         }
 
         public override void OnEnter()
@@ -58,7 +60,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 MergeCompleted = true;
             }
         }
-        
+
         private void PlayMergeAnimation(Action onComplete)
         {
             _mergeBlocksAnimation.Play(onComplete);
@@ -73,9 +75,9 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         {
             buffer.Clear();
             var visited = new bool[_board.Width, _board.Height];
-            for(var x= 0; x < _board.Width; x++)
+            for (var x = 0; x < _board.Width; x++)
             {
-                for(var y = _board.Height-1; y>=0; y--)
+                for (var y = _board.Height - 1; y >= 0; y--)
                 {
                     if (visited[x, y]) continue;
                     var cell = _board.GetCell(x, y);
@@ -108,13 +110,13 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 {
                     var nextCell = _board.GetCell(currentCell.Coordinates + direction);
                     if (nextCell == null || nextCell.IsEmpty ||
-                        visited[nextCell.Coordinates.x, nextCell.Coordinates.y] || 
-                        (nextCell.Block is MergeBlock nextMergeBlock && nextMergeBlock.Value != value)) continue;
+                        visited[nextCell.Coordinates.x, nextCell.Coordinates.y] ||
+                        nextCell.Block is not MergeBlock nextMergeBlock || nextMergeBlock.Value != value) continue;
                     visited[nextCell.Coordinates.x, nextCell.Coordinates.y] = true;
                     queue.Enqueue(nextCell);
                 }
             }
-            
+
             return mergeableCells;
         }
     }

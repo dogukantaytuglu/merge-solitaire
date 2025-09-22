@@ -7,6 +7,8 @@ namespace Whatwapp.MergeSolitaire.Game
     {
         public float ProbabilityOfGoodBlock => _probabilityOfGoodBlock;
         public float ProbabilityToSpawnAttachableBlock => _probabilityToSpawnAttachableBlock;
+        public float ProbabilityToSpawnBombBlock => _probabilityToSpawnBombBlock;
+        
 
         [SerializeField] [Range(0f, 1f)] private float _probabilityOfGoodBlock = 0.108f;
         [SerializeField] [Range(0f, 1f)] private float _probabilityToSpawnAttachableBlock = 0.5f;

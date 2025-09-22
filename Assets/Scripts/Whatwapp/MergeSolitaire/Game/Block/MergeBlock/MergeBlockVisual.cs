@@ -14,7 +14,6 @@ namespace Whatwapp.MergeSolitaire.Game
         
         public void Init(BlockValue value, BlockSeed seed)
         {
-            _defaultScale = transform.localScale;
             _spriteRenderer.sprite = _colorSettings.GetBlockSprite(seed);
             _text.text = value.Symbol();
         }

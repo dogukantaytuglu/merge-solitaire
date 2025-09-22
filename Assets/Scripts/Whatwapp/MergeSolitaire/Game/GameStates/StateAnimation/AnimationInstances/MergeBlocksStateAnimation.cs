@@ -30,7 +30,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             {
                 var seedHash = new HashSet<BlockSeed>();
                 var firstCell = group[0];
-                var firstBlock = firstCell.Block as MergeBlock;
+                if (firstCell.Block is not MergeBlock firstBlock) continue;
                 var value = firstBlock.Value;
                 var seed = firstBlock.Seed;
                 seedHash.Add(seed);
@@ -42,9 +42,9 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     seedHash.Add(mergeBlock.Seed);
                     tremorSequence.Join(mergeBlock.PlayTremorAnimation());
                 }
-
+            
                 Debug.Log("Seed hash count: " + seedHash.Count);
-
+            
                 groupSequence.Append(tremorSequence);
                 for (var i = group.Count - 1; i > 0; i--)
                 {
@@ -63,13 +63,13 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     });
                     groupSequence.Join(blockSequence);
                 }
-
+            
                 var finalSequence = DOTween.Sequence();
                 finalSequence.Append(firstBlock.PlayScaleDownAnimation())
                     .OnComplete(() =>
                     {
-                        firstCell.Block.Remove();
-                        firstCell.Block = null;
+                        firstBlock.Remove();
+                        firstBlock = null;
                     });
                 groupSequence.Join(finalSequence);
                 groupSequence.OnComplete(() =>
@@ -78,7 +78,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var newBlock = _blockFactory.Create(nextValue, seed);
                     firstCell.Block = newBlock;
                     newBlock.PlayScaleUpAnimation();
-
+            
                     foreach (var seedInGroup in seedHash)
                     {
                         Debug.Log("Seed in group: " + seedInGroup);
@@ -90,10 +90,10 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                         }
                     }
                 });
-
+            
                 _sequence.Append(groupSequence);
             }
-
+            
             _sequence.OnComplete(onComplete.Invoke);
             _sequence.Play();
         }
