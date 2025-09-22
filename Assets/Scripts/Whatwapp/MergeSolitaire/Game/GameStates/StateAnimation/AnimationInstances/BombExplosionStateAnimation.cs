@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Whatwapp.Core.Audio;
 using Whatwapp.MergeSolitaire.Game.Particles;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
@@ -32,8 +33,9 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 if (block == null) continue; 
                 _sequence.Join(block.Explode());
             }
-            
+
             _sequence.AppendCallback(() => explosionParticle.Play());
+            _sequence.JoinCallback(() => SFXManager.Instance.PlayOneShot("Explosion"));
 
             _sequence.OnComplete(() => IsAnimationActive = false);
         }

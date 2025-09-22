@@ -1828,6 +1828,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4339088824987083563, guid: 8aa72f7ba245845a6b0702c4e0083ae0, type: 3}
+      propertyPath: _clips.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4339088824987083563, guid: 8aa72f7ba245845a6b0702c4e0083ae0, type: 3}
+      propertyPath: _clips.Array.data[10]
+      value: 
+      objectReference: {fileID: 8300000, guid: 59a2d192ebd91f548ab54cf74d3ae2bd, type: 3}
     - target: {fileID: 8539456367479982917, guid: 8aa72f7ba245845a6b0702c4e0083ae0, type: 3}
       propertyPath: m_Name
       value: SFXManager
