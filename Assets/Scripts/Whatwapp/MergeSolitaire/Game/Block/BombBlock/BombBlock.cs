@@ -14,7 +14,7 @@ namespace Whatwapp.MergeSolitaire.Game
 
         public override Tween MoveToPosition(Vector2 targetPos)
         {
-            return _visual.MoveToPosition(targetPos);
+            return _visual.MoveToPosition(targetPos).OnComplete(() => _visual.EnableTrail(false));
         }
 
         public override Tween ShakeScale()

@@ -12,7 +12,15 @@ namespace Whatwapp.MergeSolitaire.Game
 
         public void EnableTrail(bool value)
         {
-            _trailParticle.gameObject.SetActive(value);
+            if (value)
+            {
+                _trailParticle.Play();
+            }
+
+            else
+            {
+                _trailParticle.Stop();
+            }
         }
 
         public Sequence Explode(Action remove)
