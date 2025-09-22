@@ -17,10 +17,9 @@ namespace Whatwapp.MergeSolitaire.Game
 
         public void Init(int width, int height)
         {
-            
             if (_cells != null)
             {
-                DestoryCells();
+                DestroyCells();
             }
             _width = width;
             _height = height;
@@ -34,7 +33,7 @@ namespace Whatwapp.MergeSolitaire.Game
             Cells.Add(cell);
         }
 
-        public void DestoryCells()
+        public void DestroyCells()
         {
             foreach (var cell in _cells)
             {
@@ -58,7 +57,7 @@ namespace Whatwapp.MergeSolitaire.Game
             return GetCell(coord.x, coord.y);
         }
 
-        public void AddStartingBlock(Block block, Vector2Int vector2Int)
+        public void AddStartingBlock(MergeBlock block, Vector2Int vector2Int)
         {
             var cell = (Cell) GetCell(vector2Int);
             cell.Block = block;
@@ -92,9 +91,9 @@ namespace Whatwapp.MergeSolitaire.Game
             return new Vector2Int(x, y);
         }
 
-        public List<Block> GetAttachableBlocks()
+        public List<MergeBlock> GetAttachableBlocks()
         {
-            var result = new List<Block>();
+            var result = new List<MergeBlock>();
            // for each column search the first cell that is not empty
            for (var x = 0; x < _width; x++)
            {
@@ -102,7 +101,8 @@ namespace Whatwapp.MergeSolitaire.Game
                {
                    var cell = GetCell(x, y);
                    if (cell.IsEmpty) continue;
-                   result.Add(cell.Block);
+                   if (cell.Block is not MergeBlock mergeBlock) continue; 
+                   result.Add(mergeBlock);
                    break;
                }
            }

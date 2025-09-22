@@ -3,17 +3,15 @@ using UnityEngine;
 
 namespace Whatwapp.MergeSolitaire.Game
 {
-    public abstract class BaseBlockVisual : MonoBehaviour
+    public class BaseBlockVisual : MonoBehaviour
     {
-        [Header("References")] 
-        [SerializeField] protected SpriteRenderer _spriteRenderer;
         [Header("Settings")]
         [SerializeField] protected AnimationSettings _animationSettings;
         [Header("Settings")] 
         [SerializeField] protected ColorSettings _colorSettings;
         
         protected Vector3 _defaultScale;
-
+        
         public Sequence MoveToPosition(Vector2 targetPos)
         {
             return DOTween.Sequence()

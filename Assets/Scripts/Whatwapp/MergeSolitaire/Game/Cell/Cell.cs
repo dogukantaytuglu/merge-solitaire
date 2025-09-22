@@ -10,8 +10,9 @@ namespace Whatwapp.MergeSolitaire.Game
         
         public Vector2 Position => transform.position;
         public Vector2Int Coordinates { get; private set; }
+        public bool IsEmpty => _block == null;
 
-        public Block Block
+        public BaseBlock Block
         {
             get => _block;
 
@@ -35,10 +36,8 @@ namespace Whatwapp.MergeSolitaire.Game
                 _block.transform.SetParent(transform);
             }
         }
-
-        public bool IsEmpty => _block == null;
-
-        private Block _block;
+        
+        private BaseBlock _block;
 
 
         public void Init(Vector2Int coordinates)

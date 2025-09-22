@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8784605551845204724}
-  - component: {fileID: 1399529986098310984}
+  - component: {fileID: 1051421808544281181}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 1852857721099767766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1399529986098310984
+--- !u!114 &1051421808544281181
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3295493306235610961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f52de25cb24a6bb44a5acb703c9136, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fef471f4d130b54ea9d436e02f24537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _visual: {fileID: 1312209873878812939}
@@ -263,10 +263,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09161b21c578461b849ac2192d456d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorSettings: {fileID: 11400000, guid: 4015302aa52ea4aaaac6e9f13dddca17, type: 2}
   _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
-  _spriteRenderer: {fileID: 5628023796377656666}
+  _colorSettings: {fileID: 11400000, guid: 4015302aa52ea4aaaac6e9f13dddca17, type: 2}
   _text: {fileID: 7604302176705496416}
+  _spriteRenderer: {fileID: 5628023796377656666}
 --- !u!1 &7972907845744663248
 GameObject:
   m_ObjectHideFlags: 0

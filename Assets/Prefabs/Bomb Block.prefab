@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3fa2ede5164a3c995d47c1a05335c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visual: {fileID: 0}
+  _visual: {fileID: 6803354402745671793}
 --- !u!1 &5313500789696638161
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1852857721099767766}
-  - component: {fileID: 3297598416196088119}
+  - component: {fileID: 6803354402745671793}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -164,7 +164,7 @@ Transform:
   - {fileID: 3004654428500813153}
   m_Father: {fileID: 8784605551845204724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3297598416196088119
+--- !u!114 &6803354402745671793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,9 +173,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5313500789696638161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a8b16c9647a45e5ba1e927b2913ef11, type: 3}
+  m_Script: {fileID: 11500000, guid: 29f521c66f064abf926e30aabb66eed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
+  _colorSettings: {fileID: 11400000, guid: 4015302aa52ea4aaaac6e9f13dddca17, type: 2}
 --- !u!1 &7972907845744663248
 GameObject:
   m_ObjectHideFlags: 0

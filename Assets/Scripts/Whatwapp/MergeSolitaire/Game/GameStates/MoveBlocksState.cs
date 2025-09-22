@@ -18,7 +18,6 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             _movingCellsBuffer = new List<Cell>();
             _stateAnimation = new MoveBlocksStateAnimation(_movingCellsBuffer, _board);
         }
-
         
         public override void OnEnter()
         {

@@ -6,12 +6,12 @@ namespace Whatwapp.MergeSolitaire.Game
     public class BlockFactory : MonoBehaviour
     {
         [Header("Prefabs")]
-        [SerializeField] private Block _blockPrefab;
+        [SerializeField] private MergeBlock _blockPrefab;
         [Header("Prefabs")]
         [SerializeField] private BombBlock _bombBlockPrefab;
 
 
-        public Block Create(BlockValue value, BlockSeed seed)
+        public MergeBlock Create(BlockValue value, BlockSeed seed)
         {
             var block = Instantiate(_blockPrefab, this.transform);
             block.Init(value, seed);
@@ -25,7 +25,7 @@ namespace Whatwapp.MergeSolitaire.Game
             return bombBlock;
         }
 
-        public Block CreateStartingBlock()
+        public MergeBlock CreateStartingBlock()
         {
             var value = EnumUtils.GetRandom<BlockValue>(BlockValue.Ace, BlockValue.King);
             var seed = EnumUtils.GetRandom<BlockSeed>();

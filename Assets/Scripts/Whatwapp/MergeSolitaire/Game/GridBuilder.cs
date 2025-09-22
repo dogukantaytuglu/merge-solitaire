@@ -83,7 +83,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public void DestroyGrid()
         {
             _isReady = false;
-            _board.DestoryCells();
+            _board.DestroyCells();
         }
     }
 }

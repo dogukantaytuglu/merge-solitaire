@@ -20,7 +20,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public bool IsReady => _nextBlock != null && _isReady;
         public bool HasBlock => _nextBlock != null;
         
-        private Block _nextBlock;
+        private BaseBlock _nextBlock;
         private bool _isReady;
         
         
@@ -48,8 +48,6 @@ namespace Whatwapp.MergeSolitaire.Game
                 }
             }
             
-            
-            
             _nextBlock = _blockFactory.Create(value, seed);
             _nextBlock.transform.SetParent(_spawnPoint);
             _nextBlock.transform.localScale = Vector3.zero;
@@ -66,7 +64,7 @@ namespace Whatwapp.MergeSolitaire.Game
             return value;
         }
 
-        public Block PopBlock()
+        public BaseBlock PopBlock()
         {
             var block = _nextBlock;
             _nextBlock = null;

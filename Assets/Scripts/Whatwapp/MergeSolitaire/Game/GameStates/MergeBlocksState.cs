@@ -94,7 +94,8 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         private List<Cell> GetMergeableCells(Cell cell, bool[,] visited)
         {
             var mergeableCells = new List<Cell>();
-            var value = cell.Block.Value;
+            if (cell.Block is not MergeBlock mergeBlock) return mergeableCells;
+            var value = mergeBlock.Value;
             var queue = new Queue<Cell>();
             queue.Enqueue(cell);
             visited[cell.Coordinates.x, cell.Coordinates.y] = true;
@@ -108,7 +109,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var nextCell = _board.GetCell(currentCell.Coordinates + direction);
                     if (nextCell == null || nextCell.IsEmpty ||
                         visited[nextCell.Coordinates.x, nextCell.Coordinates.y] || 
-                        nextCell.Block.Value != value) continue;
+                        (nextCell.Block is MergeBlock nextMergeBlock && nextMergeBlock.Value != value)) continue;
                     visited[nextCell.Coordinates.x, nextCell.Coordinates.y] = true;
                     queue.Enqueue(nextCell);
                 }

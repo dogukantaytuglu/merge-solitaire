@@ -30,15 +30,17 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             {
                 var seedHash = new HashSet<BlockSeed>();
                 var firstCell = group[0];
-                var value = firstCell.Block.Value;
-                var seed = firstCell.Block.Seed;
+                var firstBlock = firstCell.Block as MergeBlock;
+                var value = firstBlock.Value;
+                var seed = firstBlock.Seed;
                 seedHash.Add(seed);
                 var groupSequence = DOTween.Sequence();
                 var tremorSequence = DOTween.Sequence();
                 foreach (var cell in group)
                 {
-                    seedHash.Add(cell.Block.Seed);
-                    tremorSequence.Join(cell.Block.Visual.PlayTremorAnimation());
+                    if (cell.Block is not MergeBlock mergeBlock) continue;
+                    seedHash.Add(mergeBlock.Seed);
+                    tremorSequence.Join(mergeBlock.PlayTremorAnimation());
                 }
 
                 Debug.Log("Seed hash count: " + seedHash.Count);
@@ -47,10 +49,11 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 for (var i = group.Count - 1; i > 0; i--)
                 {
                     var cell = group[i];
+                    if (cell.Block is not MergeBlock mergeBlock) continue;
                     var block = cell.Block;
                     var targetCell = group[i - 1];
                     var targetPos = targetCell.transform.position;
-                    var blockSequence = block.Visual.PlayMergeAnimation(targetPos);
+                    var blockSequence = mergeBlock.PlayMergeAnimation(targetPos);
                     blockSequence.OnComplete(() =>
                     {
                         SFXManager.Instance.PlayOneShot(Consts.SFX_MergeBlocks);
@@ -62,7 +65,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 }
 
                 var finalSequence = DOTween.Sequence();
-                finalSequence.Append(firstCell.Block.Visual.PlayScaleDownAnimation())
+                finalSequence.Append(firstBlock.PlayScaleDownAnimation())
                     .OnComplete(() =>
                     {
                         firstCell.Block.Remove();
@@ -74,7 +77,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var nextValue = value.Next(true);
                     var newBlock = _blockFactory.Create(nextValue, seed);
                     firstCell.Block = newBlock;
-                    newBlock.Visual.PlayScaleUpAnimation();
+                    newBlock.PlayScaleUpAnimation();
 
                     foreach (var seedInGroup in seedHash)
                     {

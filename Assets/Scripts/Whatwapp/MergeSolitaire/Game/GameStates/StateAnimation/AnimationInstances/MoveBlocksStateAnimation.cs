@@ -26,7 +26,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                 var targetCell = _board.GetCell(cell.Coordinates.x, cell.Coordinates.y + 1);
                 targetCell.Block = block;
                 cell.Block = null;
-                sequence.Join(block.Visual.MoveToPosition(targetCell.Position));
+                sequence.Join(block.MoveToPosition(targetCell.Position));
             }
 
             sequence.OnComplete(onComplete.Invoke);

@@ -14,7 +14,7 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField]  private FoundationPileVisual _visual;
         
         private BlockSeed _seed;
-        private Block _block;
+        private MergeBlock _block;
         
         public BlockSeed Seed => _seed;
         public bool IsCompleted => _block != null && _block.Value == BlockValue.King;
@@ -28,7 +28,7 @@ namespace Whatwapp.MergeSolitaire.Game
         }
    
         
-        public bool CanAttach(Block block)
+        public bool CanAttach(MergeBlock block)
         {
             return CanAttach(block.Seed, block.Value);
         }
@@ -40,7 +40,7 @@ namespace Whatwapp.MergeSolitaire.Game
         }
         
         
-        public void AttachBlock(Block block)
+        public void AttachBlock(MergeBlock block)
         {
             if (!CanAttach(block)) return;
             var sequence = DOTween.Sequence();
