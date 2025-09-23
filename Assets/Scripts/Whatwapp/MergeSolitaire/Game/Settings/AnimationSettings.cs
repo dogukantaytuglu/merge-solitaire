@@ -34,6 +34,9 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private float _bombInflateAmount = 1.3f;
         [SerializeField] private float _bombExplodeDuration = 1f;
         [SerializeField] private float _bombShakeStrength = 90f;
+        [SerializeField] private float _cameraShakeAmplitude = 5f;
+        [SerializeField] private float _cameraShakeFrequency = 2.5f;
+        [SerializeField] private float _cameraShakeDuration = 0.85f;
         
         public float BlockMoveDuration => _blockMoveDuration;
         public float BlockMoveDelay => _blockMoveDelay;
@@ -50,5 +53,8 @@ namespace Whatwapp.MergeSolitaire.Game
         public float BombInflateAmount => _bombInflateAmount;
         public float BombExplodeDuration => _bombExplodeDuration;
         public float BombShakeStrength => _bombShakeStrength;
+        public float CameraShakeAmplitude => _cameraShakeAmplitude;
+        public float CameraShakeFrequency => _cameraShakeFrequency;
+        public float CameraShakeDuration => _cameraShakeDuration;
     }
 }

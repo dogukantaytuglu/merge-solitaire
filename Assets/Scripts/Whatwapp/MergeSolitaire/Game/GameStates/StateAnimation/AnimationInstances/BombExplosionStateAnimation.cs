@@ -7,11 +7,13 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     public class BombExplosionStateAnimation : IStateAnimation
     {
         private readonly ParticleFactory _particleFactory;
+        private readonly AnimationSettings _animationSettings;
         private Sequence _sequence;
 
-        public BombExplosionStateAnimation(ParticleFactory particleFactory)
+        public BombExplosionStateAnimation(ParticleFactory particleFactory, AnimationSettings animationSettings)
         {
             _particleFactory = particleFactory;
+            _animationSettings = animationSettings;
         }
 
         public bool IsAnimationActive { get; private set; }
@@ -36,6 +38,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
             _sequence.AppendCallback(() => explosionParticle.Play());
             _sequence.JoinCallback(() => SFXManager.Instance.PlayOneShot("Explosion"));
+            _sequence.JoinCallback(() => CameraManager.Instance.ShakeCamera(_animationSettings.CameraShakeAmplitude, _animationSettings.CameraShakeFrequency, _animationSettings.CameraShakeDuration));
 
             _sequence.OnComplete(() =>
             {

@@ -19,11 +19,11 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             new Vector2Int(0, -1),
         };
 
-        public BombExplosionState(GameController gameController, Board board, ParticleFactory particleFactory) :
+        public BombExplosionState(GameController gameController, Board board, ParticleFactory particleFactory, AnimationSettings animationSettings) :
             base(gameController)
         {
             _board = board;
-            _stateAnimation = new BombExplosionStateAnimation(particleFactory);
+            _stateAnimation = new BombExplosionStateAnimation(particleFactory, animationSettings);
         }
 
         public override void OnEnter()

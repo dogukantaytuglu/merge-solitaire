@@ -63,7 +63,7 @@ namespace Whatwapp.MergeSolitaire.Game
             var generateLevel = new GenerateLevelState(this, board, _gridBuilder, _blockFactory, _targetBoundedCamera);
             var extractBlock = new ExtractBlockState(this, _nextBlockController, _sfxManager);
             var moveBlocks = new MoveBlocksState(this, board, _animationSettings);
-            var bombExplosion = new BombExplosionState(this, board, _particleFactory);
+            var bombExplosion = new BombExplosionState(this, board, _particleFactory, _animationSettings);
             var mergeBlocks = new MergeBlocksState(this, board, _animationSettings, _foundationsController, _blockFactory);
             var playBlockState = new PlayBlockState(this, board, _nextBlockController, _sfxManager);
             var gameOver = new GameOverState(this, _sfxManager);
