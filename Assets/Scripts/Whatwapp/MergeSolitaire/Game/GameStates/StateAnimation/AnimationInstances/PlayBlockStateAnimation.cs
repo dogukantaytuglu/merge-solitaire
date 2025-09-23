@@ -17,7 +17,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         public void Play()
         {
             IsAnimationActive = true;
-            _animationTween = _playBlockState.PlayedBlock.PlayScaleUpAnimation().OnStepComplete(() => IsAnimationActive = false);
+            _animationTween = _playBlockState.PlayedBlock.PlaySpawnScaleUpAnimation().OnComplete(() => IsAnimationActive = false);
         }
 
         public void Kill(bool complete)

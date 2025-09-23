@@ -35,6 +35,11 @@ namespace Whatwapp.MergeSolitaire.Game
             return _visual.Explode(Remove);
         }
 
+        public override Tween PlaySpawnScaleUpAnimation()
+        {
+            return _visual.PlaySpawnScaleUpAnimation();
+        }
+
         public Tween PlayScaleDownAnimation()
         {
             return _visual.PlayScaleDownAnimation();
@@ -50,9 +55,9 @@ namespace Whatwapp.MergeSolitaire.Game
             return _visual.PlayMergeAnimation(targetPos);
         }
 
-        public override Tween PlayScaleUpAnimation()
+        public Tween PlayMergeScaleUpAnimation()
         {
-            return _visual.PlayScaleUpAnimation();
+            return _visual.PlayMergeScaleUpAnimation();
         }
     }
 }

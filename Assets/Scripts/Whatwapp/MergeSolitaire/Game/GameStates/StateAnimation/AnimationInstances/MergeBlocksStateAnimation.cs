@@ -83,7 +83,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     var newBlock = _blockFactory.CreateMergeBlock(nextValue, seed);
                     firstCell.Block = newBlock;
                     newBlock.transform.position = firstCell.Position;
-                    newBlock.PlayScaleUpAnimation();
+                    newBlock.PlayMergeScaleUpAnimation();
             
                     foreach (var seedInGroup in seedHash)
                     {

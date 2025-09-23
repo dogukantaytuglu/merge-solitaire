@@ -62,7 +62,7 @@ namespace Whatwapp.MergeSolitaire.Game
 
         public void AddStartingBlock(MergeBlock block, Vector2Int vector2Int)
         {
-            block.PlayScaleUpAnimation();
+            block.PlayMergeScaleUpAnimation();
             var cell = (Cell)GetCell(vector2Int);
             cell.Block = block;
             block.transform.position = cell.Position;

@@ -15,7 +15,7 @@ MonoBehaviour:
   _blockSpawnDuration: 0.25
   _blockMoveDuration: 0.25
   _blockMoveDelay: 0.15
-  _blockMergeDuration: 0.25
+  _blockMergeDuration: 0.2
   _blockMergeDelay: 0.5
   _tremorDuration: 0.2
   _tremorStrength: 0.4

@@ -44,6 +44,12 @@ namespace Whatwapp.MergeSolitaire.Game
         {
             return transform.DOMove(targetPos, _animationSettings.MergeDuration);
         }
+        
+        public Tween PlayMergeScaleUpAnimation()
+        {
+            transform.localScale = Vector3.zero;
+            return transform.DOScale(Vector3.one, _animationSettings.MergeDuration).SetEase(Ease.OutBack);
+        }
 
         public Sequence Explode(Action removeAction)
         {

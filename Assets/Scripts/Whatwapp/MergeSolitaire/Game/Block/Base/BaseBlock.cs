@@ -8,7 +8,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public abstract Tween MoveToPosition(Vector2 targetPos);
         public abstract Tween ShakeScale();
         public abstract Sequence Explode();
-        public abstract Tween PlayScaleUpAnimation();
+        public abstract Tween PlaySpawnScaleUpAnimation();
         public virtual void PutBlockInCell(Cell cell)
         {
             cell.Block = this;
