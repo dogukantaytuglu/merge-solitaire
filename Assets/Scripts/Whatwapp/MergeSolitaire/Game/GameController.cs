@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using Whatwapp.Core.Cameras;
@@ -57,9 +58,18 @@ namespace Whatwapp.MergeSolitaire.Game
             }
         }
 
-        private void Start()
+        private void OnEnable()
         {
             EventBus<ScoreGained>.Register(HandleScoreGain);
+        }
+
+        private void OnDisable()
+        {
+            EventBus<ScoreGained>.Deregister(HandleScoreGain);
+        }
+
+        private void Start()
+        {
             DOTween.SetTweensCapacity(500, 312);
             _stateMachine = new StateMachine();
             _sfxManager = SFXManager.Instance;
