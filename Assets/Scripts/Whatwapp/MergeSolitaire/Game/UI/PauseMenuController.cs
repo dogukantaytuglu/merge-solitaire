@@ -10,7 +10,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
         private void OnEnable()
         {
             var lastScore = PlayerPrefs.GetInt(Consts.PREFS_LAST_SCORE, 0);
-            _scoreBox.SetScore(lastScore);
+            _scoreBox.SetScore(lastScore, false);
             
         }
     }

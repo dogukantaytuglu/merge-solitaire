@@ -31,5 +31,5 @@ MonoBehaviour:
   _cameraShakeAmplitude: 3.81
   _cameraShakeFrequency: 3.62
   _cameraShakeDuration: 0.44
-  _scoreAnimationDuration: 1.47
-  _scoreAnimationPower: 1.1
+  _scoreAnimationDuration: 0.11
+  _scoreAnimationPower: 0.36

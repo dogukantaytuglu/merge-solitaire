@@ -1443,6 +1443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 472904826}
+  _animationSettings: {fileID: 11400000, guid: ccb81c4198f5440909f7ca5c5afdce38, type: 2}
 --- !u!114 &1956309936
 MonoBehaviour:
   m_ObjectHideFlags: 0

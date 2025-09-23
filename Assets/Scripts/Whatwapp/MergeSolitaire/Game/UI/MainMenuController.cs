@@ -11,7 +11,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
         {
             var highscore = PlayerPrefs.GetInt(Consts.PREFS_HIGHSCORE, 0);
             Debug.Log("Highscore: " + highscore);
-            _scoreBox.SetScore(highscore);
+            _scoreBox.SetScore(highscore, false);
             
         }
     }

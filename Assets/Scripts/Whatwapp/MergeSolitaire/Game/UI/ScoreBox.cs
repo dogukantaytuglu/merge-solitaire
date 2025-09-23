@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Whatwapp.Core.Logger;
 
 namespace Whatwapp.MergeSolitaire.Game.UI
 {
@@ -14,6 +15,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
         private int _currentScore;
 
         private Tween _scoreAnimation;
+        private Sequence _sequence;
 
         public void SetScore(int score, bool animate = true)
         {
@@ -23,7 +25,7 @@ namespace Whatwapp.MergeSolitaire.Game.UI
                 return;
             }
 
-            StartCoroutine(UpdateScore(score));
+            UpdateScore(score);
         }
 
         private void SetImmediate(int score)
@@ -32,22 +34,32 @@ namespace Whatwapp.MergeSolitaire.Game.UI
             _currentScore = score;
         }
 
-        private IEnumerator UpdateScore(int score)
+        private void UpdateScore(int score)
         {
             var currentScore = _currentScore;
             _currentScore = score;
             var delta = score - currentScore;
             var step = Mathf.Max(1, delta / 10);
-            while (currentScore < score)
+            var stepCount = delta / step;
+            _sequence?.Kill(true);
+            _sequence = DOTween.Sequence();
+            _sequence.AppendCallback(() =>
             {
                 currentScore += step;
                 currentScore = Mathf.Min(currentScore, score);
                 _scoreText.text = currentScore.ToString();
-                _scoreAnimation?.Kill(true);
-                _scoreAnimation = _scoreText.transform.DOPunchScale(Vector3.one * _animationSettings.ScoreAnimationPower,
-                    _animationSettings.ScoreAnimationDuration);
-                yield return new WaitForSeconds(_animationSettings.ScoreAnimationDuration);
-            }
+                PlayPunchAnimation();
+            });
+            _sequence.AppendInterval(_animationSettings.ScoreAnimationDuration);
+
+            _sequence.SetLoops(stepCount);
+        }
+
+        private void PlayPunchAnimation()
+        {
+            _scoreAnimation?.Kill(true);
+            _scoreAnimation = _scoreText.transform.DOPunchScale(Vector3.one * _animationSettings.ScoreAnimationPower,
+                _animationSettings.ScoreAnimationDuration);
         }
     }
 }

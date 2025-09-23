@@ -26,13 +26,6 @@ namespace Whatwapp.Core.Cameras
             if (_virtualCamera == null)
             {
                 Debug.LogError($"Virtual camera is null!");
-                return;
-            }
-            // Check if the camera is orthographic
-            if (_virtualCamera.m_Lens.Orthographic == false)
-            {
-                Debug.LogError("The camera is not orthographic");
-                return;
             }
         }
         
