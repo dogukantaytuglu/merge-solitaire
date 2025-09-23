@@ -16,11 +16,11 @@ MonoBehaviour:
   _blockMoveDuration: 0.2
   _blockMoveDelay: 0.05
   _blockMergeDuration: 0.2
-  _blockMergeDelay: 0.5
+  _blockMergeDelay: 0.2
   _tremorDuration: 0.2
   _tremorStrength: 0.4
-  _blockShakeDuration: 0.15
-  _blockShakeStrength: 0.75
+  _blockShakeDuration: 0.12
+  _blockShakeStrength: 0.39
   _attachDuration: 0.35
   _highlightDuration: 0.2
   _highlightDelay: 0.035
@@ -31,3 +31,5 @@ MonoBehaviour:
   _cameraShakeAmplitude: 3.81
   _cameraShakeFrequency: 3.62
   _cameraShakeDuration: 0.44
+  _scoreAnimationDuration: 1.47
+  _scoreAnimationPower: 1.1

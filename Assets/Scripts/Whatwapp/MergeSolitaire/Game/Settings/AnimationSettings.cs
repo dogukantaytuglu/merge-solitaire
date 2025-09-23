@@ -37,6 +37,11 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private float _cameraShakeAmplitude = 5f;
         [SerializeField] private float _cameraShakeFrequency = 2.5f;
         [SerializeField] private float _cameraShakeDuration = 0.85f;
+
+        [Header("Score Animation")] 
+        [SerializeField] private float _scoreAnimationDuration = 0.2f;
+        [SerializeField] private float _scoreAnimationPower = 1.1f;
+        
         
         public float BlockMoveDuration => _blockMoveDuration;
         public float BlockMoveDelay => _blockMoveDelay;
@@ -56,5 +61,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public float CameraShakeAmplitude => _cameraShakeAmplitude;
         public float CameraShakeFrequency => _cameraShakeFrequency;
         public float CameraShakeDuration => _cameraShakeDuration;
+        public float ScoreAnimationDuration => _scoreAnimationDuration;
+        public float ScoreAnimationPower => _scoreAnimationPower;
     }
 }

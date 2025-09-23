@@ -48,7 +48,7 @@ namespace Whatwapp.MergeSolitaire.Game
                     _highScore = _score;
                     PlayerPrefs.SetInt(Consts.PREFS_HIGHSCORE, _highScore);
                 }
-
+                
                 _scoreBox.SetScore(_score);
                 PlayerPrefs.SetInt(Consts.PREFS_LAST_SCORE, _score);
             }
