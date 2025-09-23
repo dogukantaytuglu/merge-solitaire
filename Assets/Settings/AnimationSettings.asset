@@ -28,3 +28,6 @@ MonoBehaviour:
   _bombInflateAmount: 1.2
   _bombExplodeDuration: 0.8
   _bombShakeStrength: 53.7
+  _cameraShakeAmplitude: 3.81
+  _cameraShakeFrequency: 3.62
+  _cameraShakeDuration: 0.44
