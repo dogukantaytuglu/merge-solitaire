@@ -30,6 +30,12 @@ namespace Whatwapp.MergeSolitaire.Game
                     _animationSettings.BlockShakeStrength)
                 .OnComplete(ResetScale);
         }
+        
+        public Tween PlayScaleUpAnimation()
+        {
+            transform.localScale = Vector3.zero;
+            return transform.DOScale(Vector3.one, _animationSettings.MergeDuration).SetEase(Ease.OutBack);
+        }
 
         protected void ResetScale()
         {

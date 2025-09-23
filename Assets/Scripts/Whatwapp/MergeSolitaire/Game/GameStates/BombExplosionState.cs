@@ -8,7 +8,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     {
         private readonly Board _board;
         public static List<Cell> CellsToExplode;
-        public static Cell BombCell;
+        public Cell BombCell;
         public bool ExplosionComplete { get; private set; }
 
         private Vector2Int[] _directions = new[]
@@ -23,7 +23,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             base(gameController)
         {
             _board = board;
-            _stateAnimation = new BombExplosionStateAnimation(particleFactory, animationSettings);
+            _stateAnimation = new BombExplosionStateAnimation(particleFactory, animationSettings, this);
         }
 
         public override void OnEnter()

@@ -8,12 +8,15 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     {
         private readonly ParticleFactory _particleFactory;
         private readonly AnimationSettings _animationSettings;
+        private readonly BombExplosionState _bombExplosionState;
         private Sequence _sequence;
 
-        public BombExplosionStateAnimation(ParticleFactory particleFactory, AnimationSettings animationSettings)
+        public BombExplosionStateAnimation(ParticleFactory particleFactory, AnimationSettings animationSettings,
+            BombExplosionState bombExplosionState)
         {
             _particleFactory = particleFactory;
             _animationSettings = animationSettings;
+            _bombExplosionState = bombExplosionState;
         }
 
         public bool IsAnimationActive { get; private set; }
@@ -25,9 +28,9 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 
             _sequence = DOTween.Sequence();
             var explosionParticle = _particleFactory.CreateExplosionParticle();
-            explosionParticle.transform.position = BombExplosionState.BombCell.Position;
+            explosionParticle.transform.position = _bombExplosionState.BombCell.Position;
 
-            _sequence.Append(BombExplosionState.BombCell.Block.Explode());
+            _sequence.Append(_bombExplosionState.BombCell.Block.Explode());
             
             foreach (var cell in cellsToExplode)
             {
@@ -47,7 +50,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     cell.Block = null;
                 }
 
-                BombExplosionState.BombCell.Block = null;
+                _bombExplosionState.BombCell.Block = null;
                 
                 IsAnimationActive = false;
             });

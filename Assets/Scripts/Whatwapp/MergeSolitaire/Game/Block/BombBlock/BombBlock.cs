@@ -22,9 +22,14 @@ namespace Whatwapp.MergeSolitaire.Game
            return _visual.ShakeScale();
         }
 
-        public override void PlayBlock(Cell cell)
+        public override Tween PlayScaleUpAnimation()
         {
-            base.PlayBlock(cell);
+            return _visual.PlayScaleUpAnimation();
+        }
+
+        public override void PutBlockInCell(Cell cell)
+        {
+            base.PutBlockInCell(cell);
             _visual.EnableTrail(true);
         }
 

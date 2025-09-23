@@ -50,9 +50,9 @@ namespace Whatwapp.MergeSolitaire.Game
             return _visual.PlayMergeAnimation(targetPos);
         }
 
-        public void PlayScaleUpAnimation()
+        public override Tween PlayScaleUpAnimation()
         {
-            _visual.PlayScaleUpAnimation();
+            return _visual.PlayScaleUpAnimation();
         }
     }
 }

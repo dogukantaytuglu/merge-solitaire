@@ -5,7 +5,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
     public class MoveBlocksState : BaseState
     {
-        public static List<Cell> MovingCellsBuffer;
+        public List<Cell> MovingCellsBuffer;
 
         private bool _canMoveBlocks;
         private Board _board;
@@ -19,7 +19,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             _board = board;
             _animationSettings = animationSettings;
             MovingCellsBuffer = new List<Cell>();
-            _stateAnimation = new MoveBlocksStateAnimation(board);
+            _stateAnimation = new MoveBlocksStateAnimation(board, this);
 
         }
         

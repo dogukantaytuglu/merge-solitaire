@@ -39,12 +39,6 @@ namespace Whatwapp.MergeSolitaire.Game
             sequence.SetDelay(_animationSettings.MergeDuration);
             return sequence;
         }
-
-        public void PlayScaleUpAnimation()
-        {
-            transform.localScale = Vector3.zero;
-            transform.DOScale(Vector3.one, _animationSettings.MergeDuration).SetEase(Ease.OutBack);
-        }
         
         private Tween MoveToMergePosition(Vector2 targetPos)
         {

@@ -40,7 +40,6 @@ namespace Whatwapp.MergeSolitaire.Game
             
             
             _nextBlock.transform.SetParent(_spawnPoint);
-            _nextBlock.transform.localScale = Vector3.zero;
             _isReady = false;
             AnimateSpawn();
         }
@@ -94,6 +93,7 @@ namespace Whatwapp.MergeSolitaire.Game
 
         private void AnimateSpawn()
         {
+            _nextBlock.transform.localScale = Vector3.zero;
             _nextBlock.transform.localPosition = Vector3.zero;
             _nextBlock.transform.DOScale(Vector3.one, _animationSettings.SpawnDuration)
                 .SetEase(Ease.OutBack)

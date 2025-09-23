@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using Whatwapp.Core.Cameras;
 
 namespace Whatwapp.MergeSolitaire.Game
 {

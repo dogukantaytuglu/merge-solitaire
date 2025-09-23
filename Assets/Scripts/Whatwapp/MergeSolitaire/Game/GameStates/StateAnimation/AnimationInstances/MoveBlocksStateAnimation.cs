@@ -6,19 +6,21 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
     {
         public bool IsAnimationActive { get; private set; }
         private readonly Board _board;
+        private readonly MoveBlocksState _moveBlocksState;
 
         private Sequence _sequence;
 
-        public MoveBlocksStateAnimation(Board board)
+        public MoveBlocksStateAnimation(Board board, MoveBlocksState moveBlocksState)
         {
             _board = board;
+            _moveBlocksState = moveBlocksState;
         }
 
         public void Play()
         {
             IsAnimationActive = true;
             _sequence = DOTween.Sequence();
-            foreach (var cell in MoveBlocksState.MovingCellsBuffer)
+            foreach (var cell in _moveBlocksState.MovingCellsBuffer)
             {
                 var block = cell.Block;
                 var targetCell = _board.GetCell(cell.Coordinates.x, cell.Coordinates.y + 1);

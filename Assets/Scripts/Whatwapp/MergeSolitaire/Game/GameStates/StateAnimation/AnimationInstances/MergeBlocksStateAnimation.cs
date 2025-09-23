@@ -14,13 +14,15 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         private readonly GameController _gameController;
         private readonly FoundationsController _foundationsController;
         private readonly BlockFactory _blockFactory;
+        private readonly MergeBlocksState _mergeBlocksState;
 
         private Sequence _sequence;
-        public MergeBlocksStateAnimation(GameController gameController, FoundationsController foundationsController, BlockFactory blockFactory)
+        public MergeBlocksStateAnimation(GameController gameController, FoundationsController foundationsController, BlockFactory blockFactory, MergeBlocksState mergeBlocksState)
         {
             _gameController = gameController;
             _foundationsController = foundationsController;
             _blockFactory = blockFactory;
+            _mergeBlocksState = mergeBlocksState;
         }
         
         public void Play()

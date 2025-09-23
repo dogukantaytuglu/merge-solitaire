@@ -31,7 +31,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
             _animationSettings = animationSettings;
             MergeableGroupsBuffer = new();
             _stateAnimation =
-                new MergeBlocksStateAnimation(gameController, foundationsController, blockFactory);
+                new MergeBlocksStateAnimation(gameController, foundationsController, blockFactory, this);
         }
 
         public override void OnEnter()
