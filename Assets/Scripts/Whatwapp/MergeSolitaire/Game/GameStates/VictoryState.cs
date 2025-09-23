@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Whatwapp.Core.Audio;
-using Whatwapp.MergeSolitaire.Game.UI;
+using Whatwapp.MergeSolitaire.Game.Events;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
@@ -18,7 +18,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
         {
             base.OnEnter();
             
-            _gameController.Score += Consts.VICTORY_POINTS;
+            EventBus<ScoreGained>.Raise(new ScoreGained(Consts.VICTORY_POINTS));
             PlayerPrefs.SetInt(Consts.PREFS_LAST_WON, 1);
             
             _gameController.StartCoroutine(ShowPanel());

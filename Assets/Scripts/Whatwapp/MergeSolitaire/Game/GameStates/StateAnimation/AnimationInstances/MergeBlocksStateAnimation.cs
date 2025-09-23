@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using Whatwapp.Core.Audio;
 using Whatwapp.Core.Extensions;
+using Whatwapp.MergeSolitaire.Game.Events;
 
 namespace Whatwapp.MergeSolitaire.Game.GameStates
 {
@@ -63,7 +64,7 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                     {
                         SFXManager.Instance.PlayOneShot(Consts.SFX_MergeBlocks);
                         targetCell.Block = null;
-                        _gameController.Score += mergeableGroups.Count * group.Count;
+                        EventBus<ScoreGained>.Raise(new ScoreGained(mergeableGroups.Count * group.Count, targetCell.Position));
                         block.Remove();
                     });
                     groupSequence.Join(blockSequence);
@@ -92,7 +93,6 @@ namespace Whatwapp.MergeSolitaire.Game.GameStates
                         if (_foundationsController.TryAndAttach(info))
                         {
                             SFXManager.Instance.PlayOneShot(Consts.GetFoundationSFX(seedInGroup));
-                            _gameController.Score += Consts.FOUNDATION_POINTS;
                         }
                     }
                 });

@@ -3,8 +3,10 @@ using UnityEngine;
 using Whatwapp.Core.Cameras;
 using Whatwapp.Core.FSM;
 using Whatwapp.Core.Audio;
+using Whatwapp.MergeSolitaire.Game.Events;
 using Whatwapp.MergeSolitaire.Game.GameStates;
 using Whatwapp.MergeSolitaire.Game.Particles;
+using Whatwapp.MergeSolitaire.Game.ScoreFloater;
 using Whatwapp.MergeSolitaire.Game.UI;
 
 namespace Whatwapp.MergeSolitaire.Game
@@ -21,6 +23,7 @@ namespace Whatwapp.MergeSolitaire.Game
         [SerializeField] private FoundationsController _foundationsController;
         [SerializeField] private AnimationSettings _animationSettings;
         [SerializeField] private ParticleFactory _particleFactory;
+        [SerializeField] private FloatersController _floatersController;
 
         [SerializeField] private ScoreBox _scoreBox;
 
@@ -37,7 +40,7 @@ namespace Whatwapp.MergeSolitaire.Game
             set { _isPaused = value; }
         }
 
-        public int Score
+        private int Score
         {
             get => _score;
             set
@@ -56,6 +59,7 @@ namespace Whatwapp.MergeSolitaire.Game
 
         private void Start()
         {
+            EventBus<ScoreGained>.Register(HandleScoreGain);
             DOTween.SetTweensCapacity(500, 312);
             _stateMachine = new StateMachine();
             _sfxManager = SFXManager.Instance;
@@ -110,6 +114,15 @@ namespace Whatwapp.MergeSolitaire.Game
 
             _highScore = PlayerPrefs.GetInt(Consts.PREFS_HIGHSCORE, 0);
             Score = 0;
+        }
+
+        private void HandleScoreGain(ScoreGained gainedEvent)
+        {
+            Score += gainedEvent.Amount;
+            if (gainedEvent.FloaterPosition != null)
+            {
+                _floatersController.ShowFloater($"+{_score}", (Vector2)gainedEvent.FloaterPosition);
+            }
         }
 
         private void Update()

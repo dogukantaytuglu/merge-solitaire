@@ -41,6 +41,10 @@ namespace Whatwapp.MergeSolitaire.Game
         [Header("Score Animation")] 
         [SerializeField] private float _scoreAnimationDuration = 0.2f;
         [SerializeField] private float _scoreAnimationPower = 1.1f;
+
+        [Header("Floater")] 
+        [SerializeField] private float _scoreFloaterYMoveAmount = 1.5f;
+        [SerializeField] private float _scoreFloaterMoveDuration = 1f;
         
         
         public float BlockMoveDuration => _blockMoveDuration;
@@ -63,5 +67,7 @@ namespace Whatwapp.MergeSolitaire.Game
         public float CameraShakeDuration => _cameraShakeDuration;
         public float ScoreAnimationDuration => _scoreAnimationDuration;
         public float ScoreAnimationPower => _scoreAnimationPower;
+        public float ScoreFloaterYMoveAmount => _scoreFloaterYMoveAmount;
+        public float ScoreFloaterMoveDuration => _scoreFloaterMoveDuration;
     }
 }

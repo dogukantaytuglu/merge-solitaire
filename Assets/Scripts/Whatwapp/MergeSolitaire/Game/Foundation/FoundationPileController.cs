@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using Whatwapp.Core.Extensions;
+using Whatwapp.MergeSolitaire.Game.Events;
 
 namespace Whatwapp.MergeSolitaire.Game
 {
@@ -43,6 +44,9 @@ namespace Whatwapp.MergeSolitaire.Game
         public void AttachBlock(MergeBlock block)
         {
             if (!CanAttach(block)) return;
+            
+            EventBus<ScoreGained>.Raise(new ScoreGained(Consts.FOUNDATION_POINTS, _attachPoint.position));
+            
             var sequence = DOTween.Sequence();
             if (_block != null)
             {
