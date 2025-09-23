@@ -25,7 +25,7 @@ namespace Whatwapp.MergeSolitaire.Game.ScoreFloater
 
         private void OnDisable()
         {
-            _sequence?.Kill();
+            _sequence?.Kill(true);
         }
     }
 }
